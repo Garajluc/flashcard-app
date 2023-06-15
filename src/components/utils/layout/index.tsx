@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
+import { PageLayout } from './components/PageLayout';
 
 export const getDefaultLayout = (page: ReactElement) => {
-  return <div>{page}</div>;
+  return <PageLayout>{page}</PageLayout>;
 };

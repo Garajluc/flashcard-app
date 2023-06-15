@@ -1,6 +1,6 @@
 import { Collections } from '@/components/collections/Collections';
 import { WithPageTitle } from '@/components/utils/WithPageTitle';
-import { getDefaultLayout } from '@/components/utils/layout/layouts';
+import { getDefaultLayout } from '@/components/utils/layout';
 
 const CollectionsPage = () => {
   return (
