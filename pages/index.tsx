@@ -1,7 +1,10 @@
-import type { NextPage } from 'next';
+import { Collections } from '@/components/collections/Collections';
+import { getDefaultLayout } from '@/components/utils/layout/layouts';
 
-const Home: NextPage = () => {
-  return <div>Home</div>;
+const CollectionsPage = () => {
+  return <Collections />;
 };
 
-export default Home;
+CollectionsPage.getLayout = getDefaultLayout;
+
+export default CollectionsPage;
