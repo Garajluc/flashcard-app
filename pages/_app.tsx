@@ -1,20 +1,22 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { theme } from '../src/theme';
+import type { AppProps } from 'next/app';
+import { LayoutProvider } from '@/components/utils/LayoutProvider';
+import { ThemeProvider } from '@/components/utils/ThemeProvider';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
+        <title>Flash Cards Application</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+      <ThemeProvider>
+        <LayoutProvider Component={Component}>
+          <Component {...pageProps} />
+        </LayoutProvider>
       </ThemeProvider>
     </>
   );
-}
+};
 
-export default MyApp;
+export default App;
