@@ -10,6 +10,13 @@ export const Footer = () => (
     sx={{ height: FOOTER_HEIGHT, mx: 5 }}
   >
     <Typography variant="caption">&copy; All rights reserved</Typography>
+    <Typography variant="caption">
+      Credits:{' '}
+      <a href="https://www.freepik.com/free-vector/no-data-concept-illustration_5928292.htm#query=empty%20state&position=1&from_view=keyword&track=ais">
+        Image by storyset
+      </a>{' '}
+      on Freepik
+    </Typography>
     <Stack direction="row" justifyContent="space-between" alignItems="center">
       <LinkedInIcon fontSize="small" />
       <Link
