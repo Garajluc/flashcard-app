@@ -12,8 +12,8 @@ export const Footer = () => (
     <Typography variant="caption">&copy; All rights reserved</Typography>
     <Typography variant="caption">
       Credits:{' '}
-      <a href="https://www.freepik.com/free-vector/no-data-concept-illustration_5928292.htm#query=empty%20state&position=1&from_view=keyword&track=ais">
-        Image by storyset
+      <a href="https://www.freepik.com/free-vector/sleep-deprivation-abstract-concept-vector-illustration-insomnia-symptom-sleep-loss-deprivation-problem-mental-health-cause-treatment-clinical-diagnostic-sleeplessness-abstract-metaphor_11668173.htm#page=2&query=empty%20state%20lazy&position=0&from_view=search&track=ais">
+        Image by vectorjuice
       </a>{' '}
       on Freepik
     </Typography>
