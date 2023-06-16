@@ -1,17 +1,23 @@
-import Head from 'next/head';
+import { Box, Typography } from '@mui/material';
 
-interface Props {
+type WithPageTitleProps = {
   children: React.ReactNode;
   title: string;
-  content?: string;
-}
+};
 
-export const WithPageTitle = ({ children, title, content }: Props) => (
-  <>
-    <Head>
-      <title>{title} - Flash Cards Application</title>
-      <meta property="og:title" content={content || title} key="title" />
-    </Head>
-    {children}
-  </>
-);
+export const WithPageTitle = ({ children, title }: WithPageTitleProps) => {
+  return (
+    <>
+      <Typography variant={'h1'} sx={{ wordBreak: 'break-word' }}>
+        {title}
+      </Typography>
+      <Box
+        sx={{
+          mt: 8,
+        }}
+      >
+        {children}
+      </Box>
+    </>
+  );
+};

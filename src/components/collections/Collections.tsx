@@ -1,18 +1,21 @@
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
 import { EmptyScreen } from '../utils/EmptyScreen';
-import { PageTitle } from '../utils/PageTitle';
 import { ActionButton } from '../utils/ActionButton';
 import { WithLoading } from '../utils/WithLoading';
+import { WithPageTitle } from '../utils/WithPageTitle';
 import { useCollections } from './useCollections';
+import { CollectionCardList } from './CollectionCardList';
 
 export const Collections = () => {
   const { hasData, collections, collectionsError, collectionsLoading } =
     useCollections();
 
+  // todo: error alert
+  // error boundaries
+
   return (
-    <>
-      <PageTitle title="Collections" />
+    <WithPageTitle title="Collections">
       <WithLoading loading={collectionsLoading}>
         {!hasData && (
           <EmptyScreen
@@ -36,8 +39,8 @@ export const Collections = () => {
             }
           />
         )}
-        {hasData && <div>Has data</div>}
+        {hasData && <CollectionCardList collections={collections ?? []} />}
       </WithLoading>
-    </>
+    </WithPageTitle>
   );
 };

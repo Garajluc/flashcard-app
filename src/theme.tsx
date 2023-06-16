@@ -17,6 +17,10 @@ export const theme = createTheme({
     text: {
       primary: '#2e3856',
     },
+    background: {
+      default: '#f6f7fb',
+      paper: '#fff',
+    },
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
