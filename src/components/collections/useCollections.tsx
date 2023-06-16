@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import type { CollectionsCategory } from '../../data/types';
-import { fetcher } from '@/api/fetchService';
+import { fetcher } from '../services/api/SwrFetchService';
 
 type HookReturn = {
   collections?: CollectionsCategory;

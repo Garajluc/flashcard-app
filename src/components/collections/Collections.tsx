@@ -4,6 +4,7 @@ import { EmptyScreen } from '../utils/EmptyScreen';
 import { ActionButton } from '../utils/ActionButton';
 import { WithLoading } from '../utils/WithLoading';
 import { WithPageTitle } from '../utils/WithPageTitle';
+import { APIErrorAlert } from '../utils/APIErrorAlert';
 import { useCollections } from './useCollections';
 import { CollectionCardList } from './CollectionCardList';
 
@@ -11,7 +12,6 @@ export const Collections = () => {
   const { hasData, collections, collectionsError, collectionsLoading } =
     useCollections();
 
-  // todo: error alert
   // error boundaries
 
   return (
@@ -41,6 +41,7 @@ export const Collections = () => {
         )}
         {hasData && <CollectionCardList collections={collections ?? []} />}
       </WithLoading>
+      <APIErrorAlert error={collectionsError} />
     </WithPageTitle>
   );
 };
