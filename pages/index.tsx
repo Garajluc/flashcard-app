@@ -1,12 +1,12 @@
 import { Collections } from '@/components/collections/Collections';
-import { WithPageTitle } from '@/components/utils/WithPageTitle';
+import { WithWindowTitle } from '@/components/utils/WithWindowTitle';
 import { getDefaultLayout } from '@/components/utils/layout';
 
 const CollectionsPage = () => {
   return (
-    <WithPageTitle title={'Collections'}>
+    <WithWindowTitle title={'Collections'}>
       <Collections />
-    </WithPageTitle>
+    </WithWindowTitle>
   );
 };
 
