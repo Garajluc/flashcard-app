@@ -12,8 +12,6 @@ export const Collections = () => {
   const { hasData, collections, collectionsError, collectionsLoading } =
     useCollections();
 
-  // error boundaries
-
   return (
     <WithPageTitle title="Collections">
       <WithLoading loading={collectionsLoading}>
