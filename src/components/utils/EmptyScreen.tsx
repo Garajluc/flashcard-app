@@ -20,8 +20,9 @@ export const EmptyScreen = ({
     <Stack justifyContent="center" alignItems="center" sx={{ height: '100%' }}>
       <Image
         src="/lazy.png"
-        width={matchDownSM ? 200 : 400}
-        height={matchDownSM ? 125 : 250}
+        priority
+        width={matchDownSM ? 200 : 350}
+        height={matchDownSM ? 200 : 350}
         alt="upload cover"
       />
       <Stack

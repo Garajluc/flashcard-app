@@ -4,6 +4,7 @@ import { Box, Stack, useMediaQuery } from '@mui/material';
 import { CONTENT_HEIGHT, FULL_HEIGHT } from '../LayoutDimensionsService';
 import { AppBar } from './AppBar';
 import { Footer } from './Footer';
+import { theme } from '@/theme';
 
 type PageLayoutProps = {
   children: ReactElement;
@@ -23,6 +24,7 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
           height: CONTENT_HEIGHT,
           px: matchDownSM ? 5 : 10,
           py: 5,
+          backgroundColor: theme.palette.background.default,
         }}
       >
         {children}

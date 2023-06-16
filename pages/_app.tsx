@@ -2,20 +2,22 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { LayoutProvider } from '@/components/utils/LayoutProvider';
 import { ThemeProvider } from '@/components/utils/ThemeProvider';
+import { ErrorBoundaryWithFallback } from '@/components/utils/ErrorBoundaryWithFallback';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <>
+    <ErrorBoundaryWithFallback>
       <Head>
-        <title>Flash Cards Application</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider>
         <LayoutProvider Component={Component}>
-          <Component {...pageProps} />
+          <ErrorBoundaryWithFallback>
+            <Component {...pageProps} />
+          </ErrorBoundaryWithFallback>
         </LayoutProvider>
       </ThemeProvider>
-    </>
+    </ErrorBoundaryWithFallback>
   );
 };
 
