@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint -- --fix",
     "test:unit": "jest --forceExit --detectOpenHandles --projects jest.next.config.js"
   },
   "dependencies": {

@@ -16,7 +16,7 @@ export const WithPageTitle = ({ children, title }: WithPageTitleProps) => {
       </Typography>
       <Box
         sx={{
-          mt: 8,
+          mt: '40px !important',
         }}
       >
         {children}

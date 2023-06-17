@@ -29,13 +29,13 @@ export const node_collection: FlashCards = [
 export const collections: Collections = [
   {
     id: '1',
-    category_id: 'react_js',
+    category_id: 'reactjs',
     category_name: 'ReactJS',
     flashcards: react_collection,
   },
   {
     id: '2',
-    category_id: 'node_js',
+    category_id: 'nodejs',
     category_name: 'NodeJS',
     flashcards: node_collection,
   },

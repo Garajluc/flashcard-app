@@ -40,6 +40,22 @@ export const theme = createTheme({
         fontSize: '1.25rem',
       },
     },
+    h3: {
+      fontSize: '1.25rem',
+      fontWeight: 700,
+      color: '#2e3856',
+      '@media (max-width:600px)': {
+        fontSize: '1rem',
+      },
+    },
+    h4: {
+      fontSize: '1rem',
+      fontWeight: 700,
+      color: '#2e3856',
+      '@media (max-width:600px)': {
+        fontSize: '0.75rem',
+      },
+    },
     body1: {
       fontSize: '1rem',
       fontWeight: 400,

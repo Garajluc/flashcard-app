@@ -1,4 +1,4 @@
-import * as yup from 'yup';
+import type * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack, Button, Grid, Alert } from '@mui/material';
 import type { DeepPartial, FieldValues } from 'react-hook-form';

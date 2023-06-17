@@ -1,13 +1,14 @@
-import type { FilterOptionsState } from '@mui/material';
+import type { FilterOptionsState, StandardTextFieldProps } from '@mui/material';
 import { Autocomplete, TextField } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 
 export type Option = string;
-interface Props {
+interface ControlledAutocompleteProps {
   name: string;
   options: Option[];
   label?: React.ReactNode;
   helperText?: string;
+  variant?: StandardTextFieldProps['variant'];
   onChange?: (selectedOptions: Option | Option[]) => void;
   onBlur?: (event: React.FocusEvent<HTMLDivElement, Element>) => void;
 }
@@ -17,9 +18,10 @@ export const ControlledAutocomplete = ({
   options,
   label,
   helperText,
+  variant = 'standard',
   onChange,
   onBlur,
-}: Props) => {
+}: ControlledAutocompleteProps) => {
   const { control } = useFormContext();
 
   const handleChange = (selectedOptions: Option | Option[] | null) => {
@@ -62,9 +64,10 @@ export const ControlledAutocomplete = ({
           renderInput={(params) => (
             <TextField
               {...params}
+              fullWidth
               label={label}
               id={`${name}-input`}
-              variant="standard"
+              variant={variant}
               error={!!error}
               helperText={error?.message || helperText}
             />

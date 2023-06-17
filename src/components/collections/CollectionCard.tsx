@@ -4,36 +4,29 @@ import {
   CardContent,
   Grid,
   Typography,
-  styled,
+  useTheme,
 } from '@mui/material';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '../utils/IconButton';
+import { BottomBorderActionStyle } from '@/components/theme/styles/BottomBorderAction';
 
 type CollectionCardProps = {
   title: string;
 };
 
-const CardStyled = styled(Card)(({ theme }) => ({
-  '&:hover': {
-    borderBottom: `4px solid ${theme.palette.primary.light}`,
-    '& .MuiTypography-root': {
-      color: theme.palette.primary.light,
-      cursor: 'default',
-    },
-  },
-}));
-
 export const CollectionCard = ({ title }: CollectionCardProps) => {
+  const theme = useTheme();
   return (
-    <CardStyled>
+    <Card sx={BottomBorderActionStyle(theme)}>
       <CardContent>
         <Grid
           container
           justifyContent={'center'}
           alignItems={'center'}
           sx={{
-            p: 5,
+            pt: 5,
+            pb: 2,
           }}
         >
           <Typography variant="h2">{title}</Typography>
@@ -55,6 +48,6 @@ export const CollectionCard = ({ title }: CollectionCardProps) => {
           />
         </Grid>
       </CardActions>
-    </CardStyled>
+    </Card>
   );
 };

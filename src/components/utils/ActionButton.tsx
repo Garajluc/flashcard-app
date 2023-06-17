@@ -4,13 +4,17 @@ import { Button } from '@mui/material';
 
 interface ActionButtonProps extends ButtonProps {
   label: string;
+  variant?: ButtonProps['variant'];
   startIcon?: React.ReactNode;
 }
 
 export const ActionButton = forwardRef(
-  ({ label, startIcon, ...rest }: ActionButtonProps, _ref) => {
+  (
+    { label, startIcon, variant = 'contained', ...rest }: ActionButtonProps,
+    _ref
+  ) => {
     return (
-      <Button size="small" variant="contained" startIcon={startIcon} {...rest}>
+      <Button size="small" variant={variant} startIcon={startIcon} {...rest}>
         {label}
       </Button>
     );
