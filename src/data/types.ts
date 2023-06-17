@@ -1,6 +1,5 @@
 export type FlashCard = {
   id: string;
-  category_id: string;
   question: string;
   answer: string;
 };

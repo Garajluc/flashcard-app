@@ -14,7 +14,6 @@ export const CreateCollection = () => {
         category_name: '',
         flashcards: [
           {
-            category_id: '',
             question: '',
             answer: '',
           },

@@ -18,7 +18,6 @@ describe('CollectionService', () => {
         category_name: 'Existing Category',
         flashcards: [
           {
-            category_id: 'existing_category',
             question: 'New Question',
             answer: 'New Answer',
           },
@@ -30,9 +29,6 @@ describe('CollectionService', () => {
       expect(updatedCollections.length).toEqual(1);
       expect(updatedCollections[0].category_id).toEqual('existing_category');
       expect(updatedCollections[0].flashcards.length).toEqual(1);
-      expect(updatedCollections[0].flashcards[0].category_id).toEqual(
-        'existing_category'
-      );
     });
 
     it('should create new collection if not matching category_name found', () => {
@@ -50,7 +46,6 @@ describe('CollectionService', () => {
         category_name: 'New Category',
         flashcards: [
           {
-            category_id: 'new_category',
             question: 'New Question',
             answer: 'New Answer',
           },
@@ -63,9 +58,6 @@ describe('CollectionService', () => {
       expect(updatedCollections[0].category_id).toEqual('existing_category');
       expect(updatedCollections[0].flashcards.length).toEqual(0);
       expect(updatedCollections[1].category_id).toEqual('new_category');
-      expect(updatedCollections[1].flashcards[0].category_id).toEqual(
-        'new_category'
-      );
     });
 
     it('should throw error if missing data in the POST request', () => {
@@ -83,7 +75,6 @@ describe('CollectionService', () => {
         category_name: 'New Category',
         flashcards: [
           {
-            category_id: 'new_category',
             question: 'New Question',
             answer: 'New Answer',
           },
