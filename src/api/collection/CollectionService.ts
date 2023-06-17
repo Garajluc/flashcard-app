@@ -1,10 +1,14 @@
-import type { NextApiRequest } from 'next';
-import type { Collections, FlashCard, FlashCards } from '@/data/types';
+import type {
+  Collections,
+  CollectionRequestBody,
+  FlashCards,
+  FlashCardRequestBody,
+} from '@/data/types';
 import { v4 as uuidv4 } from 'uuid';
 
 export const updateCollections = (
   collections: Collections,
-  requestBody: NextApiRequest['body']
+  requestBody: CollectionRequestBody
 ): Collections => {
   const { category_id, category_name, flashcards } = requestBody;
 
@@ -13,7 +17,7 @@ export const updateCollections = (
   }
 
   const updatedFlashcards: FlashCards = flashcards.map(
-    (flashcard: FlashCard) => ({
+    (flashcard: FlashCardRequestBody) => ({
       ...flashcard,
       id: uuidv4(),
     })

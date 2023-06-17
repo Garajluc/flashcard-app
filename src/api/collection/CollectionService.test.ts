@@ -6,7 +6,7 @@ describe('CollectionService', () => {
     it('should add new flashcard into existing collection', () => {
       const collections: Collections = [
         {
-          id: 1,
+          id: '1',
           category_id: 'existing_category',
           category_name: 'Existing Category',
           flashcards: [],
@@ -38,7 +38,7 @@ describe('CollectionService', () => {
     it('should create new collection if not matching category_name found', () => {
       const collections: Collections = [
         {
-          id: 1,
+          id: '1',
           category_id: 'existing_category',
           category_name: 'Existing Category',
           flashcards: [],
@@ -71,7 +71,7 @@ describe('CollectionService', () => {
     it('should throw error if missing data in the POST request', () => {
       const collections: Collections = [
         {
-          id: 1,
+          id: '1',
           category_id: 'existing_category',
           category_name: 'Existing Category',
           flashcards: [],
@@ -79,6 +79,7 @@ describe('CollectionService', () => {
       ];
 
       const requestBody = {
+        category_id: 'new_category',
         category_name: 'New Category',
         flashcards: [
           {
