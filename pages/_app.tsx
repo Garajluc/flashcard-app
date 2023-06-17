@@ -3,8 +3,11 @@ import type { AppProps } from 'next/app';
 import { LayoutProvider } from '@/components/utils/LayoutProvider';
 import { ThemeProvider } from '@/components/utils/ThemeProvider';
 import { ErrorBoundaryWithFallback } from '@/components/utils/ErrorBoundaryWithFallback';
+import { CollectionsContext } from '@/context/CollectionsContext';
+import { useCollectionsContext } from '@/context/useCollectionsContext';
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const collectionsContextValue = useCollectionsContext();
   return (
     <ErrorBoundaryWithFallback>
       <Head>
@@ -13,7 +16,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       <ThemeProvider>
         <LayoutProvider Component={Component}>
           <ErrorBoundaryWithFallback>
-            <Component {...pageProps} />
+            <CollectionsContext.Provider value={collectionsContextValue}>
+              <Component {...pageProps} />
+            </CollectionsContext.Provider>
           </ErrorBoundaryWithFallback>
         </LayoutProvider>
       </ThemeProvider>

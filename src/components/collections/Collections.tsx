@@ -9,12 +9,11 @@ import { useCollections } from './useCollections';
 import { CollectionCardList } from './CollectionCardList';
 
 export const Collections = () => {
-  const { hasData, collections, collectionsError, collectionsLoading } =
-    useCollections();
+  const { hasData, collections } = useCollections();
 
   return (
     <WithPageTitle title="Collections">
-      <WithLoading loading={collectionsLoading}>
+      <WithLoading loading={false}>
         {!hasData && (
           <EmptyScreen
             title="Welcome aboard!"
@@ -39,7 +38,7 @@ export const Collections = () => {
         )}
         {hasData && <CollectionCardList collections={collections ?? []} />}
       </WithLoading>
-      <APIErrorAlert error={collectionsError} />
+      <APIErrorAlert error={undefined} />
     </WithPageTitle>
   );
 };
