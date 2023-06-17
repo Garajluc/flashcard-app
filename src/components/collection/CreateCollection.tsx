@@ -1,5 +1,6 @@
 import { WithPageTitle } from '../utils/WithPageTitle';
 import { FormAdapter } from '../utils/form/FormAdapter';
+import { CollectionValidationSchema } from './CreateCollectionService';
 import { useCreateCollections } from './useCreateCollection';
 
 export const CreateCollection = () => {
@@ -19,6 +20,7 @@ export const CreateCollection = () => {
           },
         ],
       }}
+      validationSchema={CollectionValidationSchema}
     >
       <WithPageTitle title="Create flashcard Collection">
         <></>
