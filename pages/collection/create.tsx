@@ -1,15 +1,15 @@
-import { CreateCollection } from '@/components/collection/CreateCollection';
+import { CreateCollectionForm } from '@/components/collection/CreateCollectionForm';
 import { WithWindowTitle } from '@/components/utils/WithWindowTitle';
 import { getDefaultLayout } from '@/components/utils/layout';
 
-const CreateFlashCard = () => {
+const CreateCollection = () => {
   return (
-    <WithWindowTitle title={'Flash Card Create'}>
-      <CreateCollection />
+    <WithWindowTitle title={'Create Collection'}>
+      <CreateCollectionForm />
     </WithWindowTitle>
   );
 };
 
-CreateFlashCard.getLayout = getDefaultLayout;
+CreateCollection.getLayout = getDefaultLayout;
 
-export default CreateFlashCard;
+export default CreateCollection;

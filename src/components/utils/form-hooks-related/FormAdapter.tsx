@@ -1,7 +1,8 @@
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack, Button, Grid, Alert } from '@mui/material';
-import { DeepPartial, FieldValues, useForm } from 'react-hook-form';
+import type { DeepPartial, FieldValues } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 
 interface FormAdapterProps<FormData extends FieldValues> {
   children: React.ReactNode;
@@ -30,21 +31,23 @@ export const FormAdapter = <FormData extends FieldValues>({
   const isGenericErrorDisplayed = hasValidationError && !!submitCount;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={2}>
-        {children}
-        {isGenericErrorDisplayed && (
-          <Alert severity="error">
-            There were some issues with data you provided, please check the
-            highlighted fields
-          </Alert>
-        )}
-        <Grid container justifyContent="flex-end">
-          <Button type="submit" variant="contained" disabled={disableSubmit}>
-            Submit
-          </Button>
-        </Grid>
-      </Stack>
-    </form>
+    <FormProvider {...formContext}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={2}>
+          {children}
+          {isGenericErrorDisplayed && (
+            <Alert severity="error">
+              There were some issues with data you provided, please check the
+              highlighted fields
+            </Alert>
+          )}
+          <Grid container justifyContent="flex-end">
+            <Button type="submit" variant="contained" disabled={disableSubmit}>
+              Submit
+            </Button>
+          </Grid>
+        </Stack>
+      </form>
+    </FormProvider>
   );
 };

@@ -1,15 +1,15 @@
 import { useCallback, useContext } from 'react';
+import { SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import type { CollectionRequestBody } from '../../data/types';
 import { CollectionsContext } from '@/context/CollectionsContext';
 import { updateCollections } from '@/api/collection/CollectionService';
-import { SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/router';
 
 type HookReturn = {
   onSubmit: (formData: CollectionRequestBody) => void;
 };
 
-export const useCreateCollections = (): HookReturn => {
+export const useCreateCollectionForm = (): HookReturn => {
   const router = useRouter();
   const { collections, setCollections } = useContext(CollectionsContext);
 
@@ -17,7 +17,7 @@ export const useCreateCollections = (): HookReturn => {
     router.push({
       pathname: '/',
     });
-  }, []);
+  }, [router]);
 
   const onSubmit: SubmitHandler<CollectionRequestBody> = useCallback(
     (formData) => {
@@ -25,7 +25,7 @@ export const useCreateCollections = (): HookReturn => {
       setCollections?.(updatedCollections);
       successCallback();
     },
-    []
+    [collections, setCollections, successCallback]
   );
 
   return { onSubmit };

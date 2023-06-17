@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { collections } from '@/data/collections';
 import { updateCollections } from '@/api/collection/CollectionService';
-import { Collections } from '@/data/types';
+import type { Collections } from '@/data/types';
 
 export default function handler(
   req: NextApiRequest,

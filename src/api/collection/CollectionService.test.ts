@@ -1,5 +1,5 @@
 import { updateCollections } from './CollectionService';
-import type { Collections } from '@/data/types';
+import type { CollectionRequestBody, Collections } from '@/data/types';
 
 describe('CollectionService', () => {
   describe('updateCollections', () => {
@@ -26,9 +26,9 @@ describe('CollectionService', () => {
 
       const updatedCollections = updateCollections(collections, requestBody);
 
-      expect(updatedCollections.length).toEqual(1);
+      expect(updatedCollections).toHaveLength(1);
       expect(updatedCollections[0].category_id).toEqual('existing_category');
-      expect(updatedCollections[0].flashcards.length).toEqual(1);
+      expect(updatedCollections[0].flashcards).toHaveLength(1);
     });
 
     it('should create new collection if not matching category_name found', () => {
@@ -54,9 +54,9 @@ describe('CollectionService', () => {
 
       const updatedCollections = updateCollections(collections, requestBody);
 
-      expect(updatedCollections.length).toEqual(2);
+      expect(updatedCollections).toHaveLength(2);
       expect(updatedCollections[0].category_id).toEqual('existing_category');
-      expect(updatedCollections[0].flashcards.length).toEqual(0);
+      expect(updatedCollections[0].flashcards).toHaveLength(0);
       expect(updatedCollections[1].category_id).toEqual('new_category');
     });
 
@@ -71,7 +71,6 @@ describe('CollectionService', () => {
       ];
 
       const requestBody = {
-        category_id: 'new_category',
         category_name: 'New Category',
         flashcards: [
           {
@@ -81,7 +80,9 @@ describe('CollectionService', () => {
         ],
       };
 
-      expect(() => updateCollections(collections, requestBody)).toThrow();
+      expect(() =>
+        updateCollections(collections, requestBody as CollectionRequestBody)
+      ).toThrow();
     });
   });
 });

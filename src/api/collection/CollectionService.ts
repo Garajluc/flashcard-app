@@ -1,10 +1,10 @@
+import { v4 as uuidv4 } from 'uuid';
 import type {
   Collections,
   CollectionRequestBody,
   FlashCards,
   FlashCardRequestBody,
 } from '@/data/types';
-import { v4 as uuidv4 } from 'uuid';
 
 export const updateCollections = (
   collections: Collections,
