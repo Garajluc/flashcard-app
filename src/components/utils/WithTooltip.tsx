@@ -9,7 +9,7 @@ type WithTooltipProps = {
 
 export const WithTooltip = ({
   title,
-  placement = 'top-start',
+  placement = 'top',
   children,
 }: WithTooltipProps) => {
   return (

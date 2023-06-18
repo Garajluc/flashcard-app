@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   Card,
   CardActions,
@@ -13,9 +14,10 @@ import { BottomBorderActionStyle } from '@/components/theme/styles/BottomBorderA
 
 type CollectionCardProps = {
   title: string;
+  id: string;
 };
 
-export const CollectionCard = ({ title }: CollectionCardProps) => {
+export const CollectionCard = ({ title, id }: CollectionCardProps) => {
   const theme = useTheme();
   return (
     <Card sx={BottomBorderActionStyle(theme)}>
@@ -34,18 +36,22 @@ export const CollectionCard = ({ title }: CollectionCardProps) => {
       </CardContent>
       <CardActions>
         <Grid container justifyContent="flex-end">
-          <IconButton
-            title="Play"
-            icon={<PlayCircleOutlineIcon />}
-            size="small"
-            variant="text"
-          />
-          <IconButton
-            title="Detail"
-            icon={<EditIcon />}
-            size="small"
-            variant="text"
-          />
+          <Link passHref href={`/collection/${id}/quiz`} legacyBehavior>
+            <IconButton
+              title="Quiz"
+              icon={<PlayCircleOutlineIcon />}
+              size="small"
+              variant="text"
+            />
+          </Link>
+          <Link passHref href={`/collection/${id}/detail`} legacyBehavior>
+            <IconButton
+              title="Detail"
+              icon={<EditIcon />}
+              size="small"
+              variant="text"
+            />
+          </Link>
         </Grid>
       </CardActions>
     </Card>

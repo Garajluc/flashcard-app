@@ -4,6 +4,7 @@ import type {
   CollectionRequestBody,
   FlashCards,
   FlashCardRequestBody,
+  Collection,
 } from '@/data/types';
 
 export const updateCollections = (
@@ -49,4 +50,17 @@ export const updateCollections = (
   }
 
   return collections;
+};
+
+export const getCollectionById = (
+  id: string,
+  collections: Collections
+): Collection => {
+  const collection = collections.find((collection) => collection.id === id);
+
+  if (!collection) {
+    throw new Error('Collection not found');
+  }
+
+  return collection;
 };
