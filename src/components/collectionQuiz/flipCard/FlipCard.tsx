@@ -1,14 +1,17 @@
 import { useCallback, useState } from 'react';
 import { Grid, Box, styled } from '@mui/material';
-import { WithTooltip } from '../utils/WithTooltip';
+import { WithTooltip } from '../../utils/WithTooltip';
 import { FlipCardActionButtons } from './FlipCardActionButtons';
 import { FlipCardCounter } from './FlipCardCounter';
+
+export const FLIP_CARD_HEIGHT = '60vh';
+export const FLIP_CARD_MIN_HEIGHT = '350px';
 
 const FlipCardWrapperStyled = styled(Grid)(() => ({
   backgroundColor: 'transparent',
   width: '100%',
-  height: '60vh',
-  minHeight: '350px',
+  height: FLIP_CARD_HEIGHT,
+  minHeight: FLIP_CARD_MIN_HEIGHT,
   perspective: '1000px',
 }));
 

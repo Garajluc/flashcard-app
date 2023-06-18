@@ -1,7 +1,8 @@
 import { LinearDeterminate } from '../utils/LinearDeterminate';
 import { WithCustomAppBar } from '../utils/WithCustomAppBar';
 import { CollectionQuizAppBar } from './CollectionQuizAppBar';
-import { FlipCard } from './FlipCard';
+import { CollectionQuizEnd } from './CollectionQuizEnd';
+import { FlipCard } from './flipCard/FlipCard';
 import { useCollectionQuiz } from './useCollectionQuiz';
 
 export const CollectionQuiz = () => {
@@ -35,7 +36,7 @@ export const CollectionQuiz = () => {
           handleStillLearning={handleStillLearning}
         />
       ) : (
-        <>Finish</>
+        <CollectionQuizEnd />
       )}
     </WithCustomAppBar>
   );

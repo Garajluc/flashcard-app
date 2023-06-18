@@ -1,4 +1,4 @@
-import { CollectionQuiz } from '@/components/quiz/CollectionQuiz';
+import { CollectionQuiz } from '@/components/collectionQuiz/CollectionQuiz';
 import { WithWindowTitle } from '@/components/utils/WithWindowTitle';
 import { getQuizLayout } from '@/components/utils/layout';
 

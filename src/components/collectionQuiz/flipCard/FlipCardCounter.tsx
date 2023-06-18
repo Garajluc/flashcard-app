@@ -1,10 +1,14 @@
 import { Grid, Typography, useTheme } from '@mui/material';
-import { Chip } from '../utils/Chip';
+import { Chip } from '@/components/utils/Chip';
 
 type FlipCardCounterProps = {
   correctAnswerCount: number;
   wrongAnswerCount: number;
 };
+
+const FLIP_CARD_COUNTER_MB = '40px';
+const FLIP_CARD_COUNTER_HEIGHT = '25px';
+export const FLIP_CARD_COUNTER_TOTAL_HEIGHT = `calc(${FLIP_CARD_COUNTER_MB} + ${FLIP_CARD_COUNTER_HEIGHT})`;
 
 export const FlipCardCounter = ({
   correctAnswerCount,
@@ -18,7 +22,8 @@ export const FlipCardCounter = ({
       item
       justifyContent={'space-between'}
       sx={{
-        mb: 5,
+        mb: FLIP_CARD_COUNTER_MB,
+        height: FLIP_CARD_COUNTER_HEIGHT,
       }}
     >
       <Grid item>
