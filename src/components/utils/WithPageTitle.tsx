@@ -8,12 +8,15 @@ type WithPageTitleProps = {
 export const WithPageTitle = ({ children, title }: WithPageTitleProps) => {
   return (
     <>
-      <Typography variant={'h1'} sx={{ wordBreak: 'break-word' }}>
+      <Typography
+        variant={'h1'}
+        sx={{ wordBreak: 'break-word', textTransform: 'capitalize' }}
+      >
         {title}
       </Typography>
       <Box
         sx={{
-          mt: 8,
+          mt: '40px !important',
         }}
       >
         {children}

@@ -5,7 +5,7 @@
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["unused-imports", "@typescript-eslint"],
+  "plugins": ["unused-imports", "@typescript-eslint", "jest"],
   "rules": {
     "@typescript-eslint/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
@@ -44,6 +44,11 @@
         ],
         "pathGroupsExcludedImportTypes": ["react"]
       }
-    ]
+    ],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   }
 }
