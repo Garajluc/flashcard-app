@@ -1,8 +1,11 @@
 import { useCallback, useState } from 'react';
 import { Grid, Box, styled } from '@mui/material';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
 import { WithTooltip } from '../../utils/WithTooltip';
 import { FlipCardActionButtons } from './FlipCardActionButtons';
 import { FlipCardCounter } from './FlipCardCounter';
+import { IconButton } from '@/components/utils/IconButton';
 
 export const FLIP_CARD_HEIGHT = '60vh';
 export const FLIP_CARD_MIN_HEIGHT = '350px';
@@ -64,8 +67,11 @@ type FlipCardProps = {
   backContent: React.ReactNode;
   correctAnswerCount: number;
   wrongAnswerCount: number;
+  includeIncorrect: boolean;
   handleKnown: () => void;
   handleStillLearning: () => void;
+  handleIncludeIncorrect: () => void;
+  handleShuffle: () => void;
 };
 
 export const FlipCard = ({
@@ -73,8 +79,11 @@ export const FlipCard = ({
   backContent,
   correctAnswerCount,
   wrongAnswerCount,
+  includeIncorrect,
   handleKnown,
   handleStillLearning,
+  handleIncludeIncorrect,
+  handleShuffle,
 }: FlipCardProps) => {
   const [flip, setFlip] = useState(false);
 
@@ -83,12 +92,12 @@ export const FlipCard = ({
   }, []);
 
   return (
-    <Grid container justifyContent={'center'} onClick={handleFlip}>
+    <Grid container justifyContent={'center'}>
       <FlipCardCounter
         wrongAnswerCount={wrongAnswerCount}
         correctAnswerCount={correctAnswerCount}
       />
-      <FlipCardWrapperStyled item>
+      <FlipCardWrapperStyled item onClick={handleFlip}>
         <FlipCardStyled flip={flip}>
           <WithTooltip title={'Click to see the answer'} arrow={false}>
             <FlipCardSideStyled
@@ -118,6 +127,21 @@ export const FlipCard = ({
           </FlipCardSideStyled>
         </FlipCardStyled>
       </FlipCardWrapperStyled>
+      <Grid container justifyContent={'space-between'} sx={{ mt: 2 }}>
+        <IconButton
+          title={`Turn ${
+            includeIncorrect ? 'off' : 'on'
+          }: Include wrongly answered`}
+          icon={<RepeatIcon />}
+          onClick={handleIncludeIncorrect}
+          color={includeIncorrect ? 'success' : 'inherit'}
+        />
+        <IconButton
+          title="Shuffle cards"
+          icon={<ShuffleIcon />}
+          onClick={handleShuffle}
+        />
+      </Grid>
     </Grid>
   );
 };

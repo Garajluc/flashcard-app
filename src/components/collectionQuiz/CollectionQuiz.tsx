@@ -12,8 +12,11 @@ export const CollectionQuiz = () => {
     progress,
     correctAnswerCount,
     wrongAnswerCount,
+    includeIncorrect,
     handleKnown,
     handleStillLearning,
+    handleIncludeIncorrect,
+    handleShuffle,
   } = useCollectionQuiz();
 
   return (
@@ -28,12 +31,20 @@ export const CollectionQuiz = () => {
       {activeCard ? (
         <FlipCard
           key={activeCard.id}
-          frontContent={activeCard.question}
-          backContent={activeCard.answer}
+          frontContent={<>{activeCard.question}</>}
+          backContent={
+            <>
+              {activeCard.question}
+              {activeCard.answer}
+            </>
+          }
           correctAnswerCount={correctAnswerCount}
           wrongAnswerCount={wrongAnswerCount}
+          includeIncorrect={includeIncorrect}
           handleKnown={handleKnown}
           handleStillLearning={handleStillLearning}
+          handleIncludeIncorrect={handleIncludeIncorrect}
+          handleShuffle={handleShuffle}
         />
       ) : (
         <CollectionQuizEnd />

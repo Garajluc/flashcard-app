@@ -7,3 +7,8 @@ export const shiftFirstToEnd = (cards: FlashCard[]) => {
   const [first, ...rest] = cards;
   return [...rest, first];
 };
+
+export const removeFirst = (cards: FlashCard[]) => {
+  const [_first, ...rest] = cards;
+  return rest;
+};
