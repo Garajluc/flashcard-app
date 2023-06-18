@@ -5,7 +5,15 @@ import { FlipCard } from './FlipCard';
 import { useCollectionQuiz } from './useCollectionQuiz';
 
 export const CollectionQuiz = () => {
-  const { collection, progress } = useCollectionQuiz();
+  const {
+    collection,
+    activeCard,
+    progress,
+    correctAnswerCount,
+    wrongAnswerCount,
+    handleKnown,
+    handleStillLearning,
+  } = useCollectionQuiz();
 
   return (
     <WithCustomAppBar
@@ -16,7 +24,19 @@ export const CollectionQuiz = () => {
         </>
       }
     >
-      <FlipCard />
+      {activeCard ? (
+        <FlipCard
+          key={activeCard.id}
+          frontContent={activeCard.question}
+          backContent={activeCard.answer}
+          correctAnswerCount={correctAnswerCount}
+          wrongAnswerCount={wrongAnswerCount}
+          handleKnown={handleKnown}
+          handleStillLearning={handleStillLearning}
+        />
+      ) : (
+        <>Finish</>
+      )}
     </WithCustomAppBar>
   );
 };

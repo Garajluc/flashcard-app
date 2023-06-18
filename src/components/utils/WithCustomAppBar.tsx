@@ -16,7 +16,7 @@ export const WithCustomAppBar = ({
         sx={{
           maxWidth: '75vw',
           margin: 'auto',
-          py: 5,
+          pt: 8,
         }}
       >
         {children}

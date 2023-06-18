@@ -1,10 +1,14 @@
 import { useCallback, useState } from 'react';
-import { Button, Grid, Box, styled } from '@mui/material';
+import { Grid, Box, styled } from '@mui/material';
+import { WithTooltip } from '../utils/WithTooltip';
+import { FlipCardActionButtons } from './FlipCardActionButtons';
+import { FlipCardCounter } from './FlipCardCounter';
 
 const FlipCardWrapperStyled = styled(Grid)(() => ({
   backgroundColor: 'transparent',
   width: '100%',
-  height: '400px',
+  height: '60vh',
+  minHeight: '350px',
   perspective: '1000px',
 }));
 
@@ -36,19 +40,39 @@ const FlipCardSideStyled = styled(Grid, {
   position: 'absolute',
   width: '100%',
   height: '100%',
+  padding: '16px',
+  borderRadius: '4px',
   backgroundColor: '#fff',
   backfaceVisibility: 'hidden',
+  transition: 'box-shadow 0.4s',
   ...(isBackSide && {
     transform: 'rotateY(180deg)',
+  }),
+  ...(!isBackSide && {
+    '&:hover': {
+      cursor: 'pointer',
+      boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+    },
   }),
 }));
 
 type FlipCardProps = {
   frontContent: React.ReactNode;
   backContent: React.ReactNode;
+  correctAnswerCount: number;
+  wrongAnswerCount: number;
+  handleKnown: () => void;
+  handleStillLearning: () => void;
 };
 
-export const FlipCard = ({ frontContent, backContent }: FlipCardProps) => {
+export const FlipCard = ({
+  frontContent,
+  backContent,
+  correctAnswerCount,
+  wrongAnswerCount,
+  handleKnown,
+  handleStillLearning,
+}: FlipCardProps) => {
   const [flip, setFlip] = useState(false);
 
   const handleFlip = useCallback(() => {
@@ -56,10 +80,14 @@ export const FlipCard = ({ frontContent, backContent }: FlipCardProps) => {
   }, []);
 
   return (
-    <>
-      <Grid container justifyContent={'center'}>
-        <FlipCardWrapperStyled item>
-          <FlipCardStyled flip={flip}>
+    <Grid container justifyContent={'center'} onClick={handleFlip}>
+      <FlipCardCounter
+        wrongAnswerCount={wrongAnswerCount}
+        correctAnswerCount={correctAnswerCount}
+      />
+      <FlipCardWrapperStyled item>
+        <FlipCardStyled flip={flip}>
+          <WithTooltip title={'Click to see the answer'} arrow={false}>
             <FlipCardSideStyled
               container
               justifyContent="center"
@@ -67,18 +95,26 @@ export const FlipCard = ({ frontContent, backContent }: FlipCardProps) => {
             >
               {frontContent}
             </FlipCardSideStyled>
-            <FlipCardSideStyled
+          </WithTooltip>
+          <FlipCardSideStyled container isBackSide={true}>
+            <Grid
+              item
               container
               justifyContent="center"
               alignItems="center"
-              isBackSide={true}
+              sx={{ height: '80%' }}
             >
               {backContent}
-            </FlipCardSideStyled>
-          </FlipCardStyled>
-        </FlipCardWrapperStyled>
-      </Grid>
-      <Button onClick={handleFlip}>Flip</Button>
-    </>
+            </Grid>
+            <Grid container item>
+              <FlipCardActionButtons
+                handleKnown={handleKnown}
+                handleStillLearning={handleStillLearning}
+              />
+            </Grid>
+          </FlipCardSideStyled>
+        </FlipCardStyled>
+      </FlipCardWrapperStyled>
+    </Grid>
   );
 };
