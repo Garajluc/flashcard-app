@@ -1,6 +1,7 @@
 import { LinearDeterminate } from '../utils/LinearDeterminate';
 import { WithCustomAppBar } from '../utils/WithCustomAppBar';
 import { CollectionQuizAppBar } from './CollectionQuizAppBar';
+import { FlipCard } from './FlipCard';
 import { useCollectionQuiz } from './useCollectionQuiz';
 
 export const CollectionQuiz = () => {
@@ -15,7 +16,7 @@ export const CollectionQuiz = () => {
         </>
       }
     >
-      Quiz
+      <FlipCard />
     </WithCustomAppBar>
   );
 };
