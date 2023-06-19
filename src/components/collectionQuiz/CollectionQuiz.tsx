@@ -60,7 +60,10 @@ export const CollectionQuiz = () => {
           handleShuffle={handleShuffle}
         />
       ) : (
-        <CollectionQuizEnd />
+        <CollectionQuizEnd
+          collection={collection}
+          correctAnswerCount={correctAnswerCount}
+        />
       )}
     </WithCustomAppBar>
   );
