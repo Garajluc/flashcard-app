@@ -13,6 +13,7 @@ export const CollectionQuiz = () => {
     correctAnswerCount,
     wrongAnswerCount,
     includeIncorrect,
+    unansweredCards,
     handleKnown,
     handleStillLearning,
     handleIncludeIncorrect,
@@ -23,7 +24,10 @@ export const CollectionQuiz = () => {
     <WithCustomAppBar
       appBarComponent={
         <>
-          <CollectionQuizAppBar collectionName={collection.category_name} />
+          <CollectionQuizAppBar
+            collection={collection}
+            unansweredCardsCount={unansweredCards.length}
+          />
           <LinearDeterminate progress={progress} />
         </>
       }

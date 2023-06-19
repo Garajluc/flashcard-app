@@ -8,15 +8,20 @@ import {
 import { CollectionsContext } from '@/context/CollectionsContext';
 import { getCollectionById } from '@/api/collection/CollectionService';
 import { useQueryValueFromRouter } from '@/utils/useQueryValueFromRouter';
-import type { Collection, FlashCardWithId } from '@/data/types';
+import type {
+  CollectionWithId,
+  FlashCardWithId,
+  FlashCardsWithId,
+} from '@/data/types';
 
 type HookReturn = {
   activeCard?: FlashCardWithId;
-  collection: Collection;
+  collection: CollectionWithId;
   progress: number;
   correctAnswerCount: number;
   wrongAnswerCount: number;
   includeIncorrect: boolean;
+  unansweredCards: FlashCardsWithId;
   handleStillLearning: () => void;
   handleKnown: () => void;
   handleIncludeIncorrect: () => void;
@@ -78,6 +83,7 @@ export const useCollectionQuiz = (): HookReturn => {
     correctAnswerCount,
     wrongAnswerCount,
     includeIncorrect,
+    unansweredCards,
     handleStillLearning,
     handleKnown,
     handleIncludeIncorrect,
