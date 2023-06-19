@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Link from 'next/link';
 import {
   Card,
@@ -12,6 +13,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '../utils/IconButton';
 import { BottomBorderActionStyle } from '@/components/theme/styles/BottomBorderAction';
+import { getCollectionById } from '@/api/collection/CollectionService';
+import { CollectionsContext } from '@/context/CollectionsContext';
 
 type CollectionCardProps = {
   title: string;
@@ -25,6 +28,9 @@ export const CollectionCard = ({
   handleDelete,
 }: CollectionCardProps) => {
   const theme = useTheme();
+  const { collections } = useContext(CollectionsContext);
+  const collection = getCollectionById(id, collections);
+
   const handleClickDelete = () => {
     handleDelete(id);
   };
@@ -59,7 +65,11 @@ export const CollectionCard = ({
             />
           </Grid>
           <Grid item>
-            <Link passHref href={`/collection/${id}/quiz`} legacyBehavior>
+            <Link
+              passHref
+              href={`/collection/${id}/quiz?cardId=${collection.flashcards[0].id}`}
+              legacyBehavior
+            >
               <IconButton
                 title="Quiz"
                 icon={<PlayCircleOutlineIcon />}

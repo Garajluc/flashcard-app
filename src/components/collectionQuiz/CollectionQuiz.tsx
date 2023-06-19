@@ -1,3 +1,4 @@
+import { Grid, Typography } from '@mui/material';
 import { LinearDeterminate } from '../utils/LinearDeterminate';
 import { WithCustomAppBar } from '../utils/WithCustomAppBar';
 import { CollectionQuizAppBar } from './CollectionQuizAppBar';
@@ -13,6 +14,7 @@ export const CollectionQuiz = () => {
     correctAnswerCount,
     wrongAnswerCount,
     includeIncorrect,
+    unansweredCards,
     handleKnown,
     handleStillLearning,
     handleIncludeIncorrect,
@@ -23,20 +25,31 @@ export const CollectionQuiz = () => {
     <WithCustomAppBar
       appBarComponent={
         <>
-          <CollectionQuizAppBar collectionName={collection.category_name} />
+          <CollectionQuizAppBar
+            collection={collection}
+            unansweredCardsCount={unansweredCards.length}
+          />
           <LinearDeterminate progress={progress} />
         </>
       }
     >
-      {activeCard ? (
+      {activeCard && unansweredCards.length > 0 && (
         <FlipCard
           key={activeCard.id}
-          frontContent={<>{activeCard.question}</>}
+          frontContent={
+            <Typography variant="h5">{activeCard.question}</Typography>
+          }
           backContent={
-            <>
-              {activeCard.question}
-              {activeCard.answer}
-            </>
+            <Grid container justifyContent="center" alignItems="center">
+              <Grid item xs={12}>
+                <Typography variant="h4" sx={{ opacity: 0.5 }} gutterBottom>
+                  {activeCard.question}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="h2">{activeCard.answer}</Typography>
+              </Grid>
+            </Grid>
           }
           correctAnswerCount={correctAnswerCount}
           wrongAnswerCount={wrongAnswerCount}
@@ -46,8 +59,12 @@ export const CollectionQuiz = () => {
           handleIncludeIncorrect={handleIncludeIncorrect}
           handleShuffle={handleShuffle}
         />
-      ) : (
-        <CollectionQuizEnd />
+      )}
+      {unansweredCards.length === 0 && (
+        <CollectionQuizEnd
+          collection={collection}
+          correctAnswerCount={correctAnswerCount}
+        />
       )}
     </WithCustomAppBar>
   );

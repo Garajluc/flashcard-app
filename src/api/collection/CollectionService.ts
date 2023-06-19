@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 import type {
-  FlashCards,
   FlashCard,
   CollectionsWithId,
   CollectionWithId,
@@ -72,9 +71,7 @@ export const getCollectionById = (
 export const updateCollections = (
   collections: CollectionsWithId,
   collectionId: string,
-  formData: Omit<Collection, 'flashcards'> & {
-    flashcards: FlashCard[];
-  }
+  formData: Collection
 ): CollectionsWithId => {
   const { category_id, category_name, flashcards } = formData;
 
@@ -84,7 +81,7 @@ export const updateCollections = (
     );
   }
 
-  const flashcardsWithId: FlashCards = flashcards.map(
+  const flashcardsWithId: FlashCardsWithId = flashcards.map(
     (flashcard: FlashCard) => ({
       ...flashcard,
       id: uuidv4(),

@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { CollectionsCategory } from '../../src/data/types';
 import { collections } from '../../src/data/collections';
+import type { CollectionCategory } from '@/data/types';
 
 export default function handler(
   _req: NextApiRequest,
-  res: NextApiResponse<CollectionsCategory>
+  res: NextApiResponse<CollectionCategory[]>
 ) {
   const collectionCategories = collections.map((collection) => ({
     id: collection.id,

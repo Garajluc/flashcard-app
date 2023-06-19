@@ -32,7 +32,7 @@ const FlipCardStyled = styled(Box, {
   transition: 'transform 0.8s',
   transformStyle: 'preserve-3d',
   ...(flip && {
-    transform: 'rotateY(180deg)',
+    transform: 'rotateY(-180deg)',
   }),
 }));
 
