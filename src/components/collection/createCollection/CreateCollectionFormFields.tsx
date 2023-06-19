@@ -1,9 +1,9 @@
 import { Grid, Stack } from '@mui/material';
-import { WithPageTitle } from '../utils/WithPageTitle';
-import { ControlledArrayField } from '../utils/form-hooks-related/ControlledArrayField';
-import { ControlledAutocomplete } from '../utils/form-hooks-related/ControlledAutocomplete';
-import { FlashcardFields } from './FlashcardFields';
+import { FlashcardFields } from '../FlashcardFields';
 import { useCreateCollectionFormFields } from './useCreateCollectionFormFields';
+import { WithPageTitle } from '@/components/utils/WithPageTitle';
+import { ControlledArrayField } from '@/components/utils/form-hooks-related/ControlledArrayField';
+import { ControlledAutocomplete } from '@/components/utils/form-hooks-related/ControlledAutocomplete';
 
 export const CreateCollectionFormFields = () => {
   const { options, setCategoryId } = useCreateCollectionFormFields();
