@@ -1,30 +1,29 @@
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
-import { Grid } from '@mui/material';
 import { EmptyScreen } from '../utils/EmptyScreen';
 import { ActionButton } from '../utils/ActionButton';
 import { WithLoading } from '../utils/WithLoading';
 import { WithPageTitle } from '../utils/WithPageTitle';
 import { APIErrorAlert } from '../utils/APIErrorAlert';
 import { WithActionToolbar } from '../utils/WithActionToolbar';
+import SearchField from '../utils/SearchField';
 import { useCollections } from './useCollections';
 import { CollectionCardList } from './CollectionCardList';
 
 export const Collections = () => {
-  const { hasData, collections } = useCollections();
+  const { hasData, collections, handleSearch } = useCollections();
 
   return (
     <WithPageTitle title="Collections">
       <WithActionToolbar
+        actionComponentLeft={<SearchField onChange={handleSearch} />}
         actionComponentRight={
-          <Grid container item xs={12} justifyContent={'flex-end'}>
-            <Link passHref href={'/collection/create'} legacyBehavior>
-              <ActionButton
-                label="Add Flash Card"
-                startIcon={<AddIcon fontSize="small" />}
-              />
-            </Link>
-          </Grid>
+          <Link passHref href={'/collection/create'} legacyBehavior>
+            <ActionButton
+              label="Add Flash Card"
+              startIcon={<AddIcon fontSize="small" />}
+            />
+          </Link>
         }
       >
         <WithLoading loading={false}>
