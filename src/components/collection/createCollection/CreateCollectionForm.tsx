@@ -1,7 +1,7 @@
-import { FormAdapter } from '../utils/form-hooks-related/FormAdapter';
+import { FormAdapter } from '../../utils/form-hooks-related/FormAdapter';
+import { useCreateCollectionForm } from './useCreateCollectionForm';
 import { CreateCollectionFormFields } from './CreateCollectionFormFields';
 import { CollectionValidationSchema } from './CreateCollectionServiceForm';
-import { useCreateCollectionForm } from './useCreateCollectionForm';
 
 export const CreateCollectionForm = () => {
   const { onSubmit } = useCreateCollectionForm();

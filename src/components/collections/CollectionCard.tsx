@@ -44,9 +44,9 @@ export const CollectionCard = ({ title, id }: CollectionCardProps) => {
               variant="text"
             />
           </Link>
-          <Link passHref href={`/collection/${id}/detail`} legacyBehavior>
+          <Link passHref href={`/collection/${id}/edit`} legacyBehavior>
             <IconButton
-              title="Detail"
+              title="Edit"
               icon={<EditIcon />}
               size="small"
               variant="text"

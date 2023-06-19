@@ -1,7 +1,7 @@
 import { useCallback, useContext } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import type { CollectionRequestBody } from '../../data/types';
+import type { CollectionRequestBody } from '../../../data/types';
 import { CollectionsContext } from '@/context/CollectionsContext';
 import { updateCollections } from '@/api/collection/CollectionService';
 
