@@ -8,7 +8,7 @@ type HookReturn = {
   setCategoryId: (event: React.FocusEvent<HTMLDivElement, Element>) => void;
 };
 
-export const useCreateCollectionFormFields = (): HookReturn => {
+export const useCollectionMutationFormFields = (): HookReturn => {
   const { setValue } = useFormContext();
   const { collections } = useContext(CollectionsContext);
 

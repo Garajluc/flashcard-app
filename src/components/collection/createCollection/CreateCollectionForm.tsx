@@ -1,7 +1,7 @@
 import { FormAdapter } from '../../utils/form-hooks-related/FormAdapter';
+import { CollectionMutationFormFields } from '../CollectionMutationFormFields';
+import { CollectionValidationSchema } from '../CollectionFormService';
 import { useCreateCollectionForm } from './useCreateCollectionForm';
-import { CreateCollectionFormFields } from './CreateCollectionFormFields';
-import { CollectionValidationSchema } from './CreateCollectionServiceForm';
 
 export const CreateCollectionForm = () => {
   const { onSubmit } = useCreateCollectionForm();
@@ -21,7 +21,7 @@ export const CreateCollectionForm = () => {
       onSubmit={onSubmit}
       validationSchema={CollectionValidationSchema}
     >
-      <CreateCollectionFormFields />
+      <CollectionMutationFormFields />
     </FormAdapter>
   );
 };

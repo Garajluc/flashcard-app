@@ -1,8 +1,8 @@
-import { updateCollections } from './CollectionService';
+import { createOrUpdateCollections } from './CollectionService';
 import type { CollectionRequestBody, Collections } from '@/data/types';
 
 describe('CollectionService', () => {
-  describe('updateCollections', () => {
+  describe('createOrUpdateCollections', () => {
     it('should add new flashcard into existing collection', () => {
       const collections: Collections = [
         {
@@ -24,7 +24,10 @@ describe('CollectionService', () => {
         ],
       };
 
-      const updatedCollections = updateCollections(collections, requestBody);
+      const updatedCollections = createOrUpdateCollections(
+        collections,
+        requestBody
+      );
 
       expect(updatedCollections).toHaveLength(1);
       expect(updatedCollections[0].category_id).toEqual('existing_category');
@@ -52,7 +55,10 @@ describe('CollectionService', () => {
         ],
       };
 
-      const updatedCollections = updateCollections(collections, requestBody);
+      const updatedCollections = createOrUpdateCollections(
+        collections,
+        requestBody
+      );
 
       expect(updatedCollections).toHaveLength(2);
       expect(updatedCollections[0].category_id).toEqual('existing_category');
@@ -81,7 +87,10 @@ describe('CollectionService', () => {
       };
 
       expect(() =>
-        updateCollections(collections, requestBody as CollectionRequestBody)
+        createOrUpdateCollections(
+          collections,
+          requestBody as CollectionRequestBody
+        )
       ).toThrow();
     });
   });

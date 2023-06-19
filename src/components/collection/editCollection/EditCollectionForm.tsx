@@ -1,25 +1,18 @@
 import { FormAdapter } from '../../utils/form-hooks-related/FormAdapter';
+import { CollectionMutationFormFields } from '../CollectionMutationFormFields';
+import { CollectionValidationSchema } from '../CollectionFormService';
+import { useEditCollectionForm } from './useEditCollectionForm';
 
 export const EditCollectionForm = () => {
-  const onSubmit = () => {
-    console.log('EditCollectionForm onSubmit');
-  };
+  const { collection, onSubmit } = useEditCollectionForm();
+
   return (
     <FormAdapter
-      initialValues={{
-        category_id: '',
-        category_name: '',
-        flashcards: [
-          {
-            question: '',
-            answer: '',
-          },
-        ],
-      }}
+      initialValues={collection}
       onSubmit={onSubmit}
-      // validationSchema={CollectionValidationSchema}
+      validationSchema={CollectionValidationSchema}
     >
-      <>Edit</>
+      <CollectionMutationFormFields />
     </FormAdapter>
   );
 };

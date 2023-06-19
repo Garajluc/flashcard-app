@@ -1,12 +1,12 @@
 import { Grid, Stack } from '@mui/material';
-import { FlashcardFields } from '../FlashcardFields';
-import { useCreateCollectionFormFields } from './useCreateCollectionFormFields';
+import { FlashcardFields } from './FlashcardFields';
+import { useCollectionMutationFormFields } from './useCollectionMutationFormFields';
 import { WithPageTitle } from '@/components/utils/WithPageTitle';
 import { ControlledArrayField } from '@/components/utils/form-hooks-related/ControlledArrayField';
 import { ControlledAutocomplete } from '@/components/utils/form-hooks-related/ControlledAutocomplete';
 
-export const CreateCollectionFormFields = () => {
-  const { options, setCategoryId } = useCreateCollectionFormFields();
+export const CollectionMutationFormFields = () => {
+  const { options, setCategoryId } = useCollectionMutationFormFields();
 
   return (
     <WithPageTitle title="Create flashcard Collection">
