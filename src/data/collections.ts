@@ -1,6 +1,6 @@
-import type { FlashCards, Collections } from './types';
+import type { CollectionsWithId, FlashCardsWithId } from './types';
 
-export const react_collection: FlashCards = [
+export const react_collection: FlashCardsWithId = [
   {
     id: '1',
     question: 'Question 1',
@@ -13,7 +13,7 @@ export const react_collection: FlashCards = [
   },
 ];
 
-export const node_collection: FlashCards = [
+export const node_collection: FlashCardsWithId = [
   {
     id: '1',
     question: 'Question 1',
@@ -26,7 +26,7 @@ export const node_collection: FlashCards = [
   },
 ];
 
-export const collections: Collections = [
+export const collections: CollectionsWithId = [
   {
     id: '1',
     category_id: 'reactjs',

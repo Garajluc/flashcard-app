@@ -1,14 +1,14 @@
 import { useCallback, useContext, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { convertValueToId } from '../services/IdService';
 import { CollectionsContext } from '@/context/CollectionsContext';
+import { convertValueToId } from '@/components/services/IdService';
 
 type HookReturn = {
   options: string[];
   setCategoryId: (event: React.FocusEvent<HTMLDivElement, Element>) => void;
 };
 
-export const useCreateCollectionFormFields = (): HookReturn => {
+export const useCollectionMutationFormFields = (): HookReturn => {
   const { setValue } = useFormContext();
   const { collections } = useContext(CollectionsContext);
 

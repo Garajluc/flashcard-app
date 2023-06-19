@@ -9,16 +9,26 @@ import {
 } from '@mui/material';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '../utils/IconButton';
 import { BottomBorderActionStyle } from '@/components/theme/styles/BottomBorderAction';
 
 type CollectionCardProps = {
   title: string;
   id: string;
+  handleDelete: (id: string) => void;
 };
 
-export const CollectionCard = ({ title, id }: CollectionCardProps) => {
+export const CollectionCard = ({
+  title,
+  id,
+  handleDelete,
+}: CollectionCardProps) => {
   const theme = useTheme();
+  const handleClickDelete = () => {
+    handleDelete(id);
+  };
+
   return (
     <Card sx={BottomBorderActionStyle(theme)}>
       <CardContent>
@@ -35,23 +45,37 @@ export const CollectionCard = ({ title, id }: CollectionCardProps) => {
         </Grid>
       </CardContent>
       <CardActions>
-        <Grid container justifyContent="flex-end">
-          <Link passHref href={`/collection/${id}/quiz`} legacyBehavior>
+        <Grid container justifyContent="space-between">
+          <Grid item>
             <IconButton
-              title="Quiz"
-              icon={<PlayCircleOutlineIcon />}
+              onClick={handleClickDelete}
+              title="Delete"
+              icon={<DeleteIcon />}
               size="small"
               variant="text"
+              sx={{
+                opacity: 0.5,
+              }}
             />
-          </Link>
-          <Link passHref href={`/collection/${id}/detail`} legacyBehavior>
-            <IconButton
-              title="Detail"
-              icon={<EditIcon />}
-              size="small"
-              variant="text"
-            />
-          </Link>
+          </Grid>
+          <Grid item>
+            <Link passHref href={`/collection/${id}/quiz`} legacyBehavior>
+              <IconButton
+                title="Quiz"
+                icon={<PlayCircleOutlineIcon />}
+                size="small"
+                variant="text"
+              />
+            </Link>
+            <Link passHref href={`/collection/${id}/edit`} legacyBehavior>
+              <IconButton
+                title="Edit"
+                icon={<EditIcon />}
+                size="small"
+                variant="text"
+              />
+            </Link>
+          </Grid>
         </Grid>
       </CardActions>
     </Card>

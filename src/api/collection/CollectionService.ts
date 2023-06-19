@@ -1,24 +1,28 @@
 import { v4 as uuidv4 } from 'uuid';
 import type {
-  Collections,
-  CollectionRequestBody,
   FlashCards,
-  FlashCardRequestBody,
+  FlashCard,
+  CollectionsWithId,
+  CollectionWithId,
+  FlashCardsWithId,
   Collection,
 } from '@/data/types';
+import { getKeysOfNullValues } from '@/components/services/api/ErrorsService';
 
-export const updateCollections = (
-  collections: Collections,
-  requestBody: CollectionRequestBody
-): Collections => {
-  const { category_id, category_name, flashcards } = requestBody;
+export const createOrUpdateCollections = (
+  collections: CollectionsWithId,
+  formData: Collection
+): CollectionsWithId => {
+  const { category_id, category_name, flashcards } = formData;
 
-  if (!category_id || !category_name || !flashcards || !flashcards.length) {
-    throw new Error('Missing data');
+  if (!category_id || !category_name || !flashcards) {
+    throw new Error(
+      `Missing data: ${getKeysOfNullValues(formData).join(', ')}`
+    );
   }
 
-  const updatedFlashcards: FlashCards = flashcards.map(
-    (flashcard: FlashCardRequestBody) => ({
+  const flashcardsWithId: FlashCardsWithId = flashcards.map(
+    (flashcard: FlashCard) => ({
       ...flashcard,
       id: uuidv4(),
     })
@@ -31,7 +35,7 @@ export const updateCollections = (
   if (isCollectionExisting) {
     return collections.map((collection) => {
       if (collection.category_id === category_id) {
-        collection.flashcards.push(...updatedFlashcards);
+        collection.flashcards.push(...flashcardsWithId);
       }
       return collection;
     });
@@ -44,9 +48,9 @@ export const updateCollections = (
         id: uuidv4(),
         category_id,
         category_name,
-        flashcards: updatedFlashcards,
+        flashcards: flashcardsWithId,
       },
-    ] as Collections;
+    ] as CollectionsWithId;
   }
 
   return collections;
@@ -54,8 +58,8 @@ export const updateCollections = (
 
 export const getCollectionById = (
   id: string,
-  collections: Collections
-): Collection => {
+  collections: CollectionsWithId
+): CollectionWithId => {
   const collection = collections.find((collection) => collection.id === id);
 
   if (!collection) {
@@ -63,4 +67,38 @@ export const getCollectionById = (
   }
 
   return collection;
+};
+
+export const updateCollections = (
+  collections: CollectionsWithId,
+  collectionId: string,
+  formData: Omit<Collection, 'flashcards'> & {
+    flashcards: FlashCard[];
+  }
+): CollectionsWithId => {
+  const { category_id, category_name, flashcards } = formData;
+
+  if (!category_id || !category_name || !flashcards) {
+    throw new Error(
+      `Missing data: ${getKeysOfNullValues(formData).join(', ')}`
+    );
+  }
+
+  const flashcardsWithId: FlashCards = flashcards.map(
+    (flashcard: FlashCard) => ({
+      ...flashcard,
+      id: uuidv4(),
+    })
+  );
+
+  return collections.map((collection) => {
+    if (collection.id === collectionId) {
+      return {
+        ...collection,
+        ...formData,
+        flashcards: flashcardsWithId,
+      };
+    }
+    return collection;
+  });
 };

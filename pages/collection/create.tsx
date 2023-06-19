@@ -1,4 +1,4 @@
-import { CreateCollectionForm } from '@/components/collection/CreateCollectionForm';
+import { CreateCollectionForm } from '@/components/collection/createCollection/CreateCollectionForm';
 import { WithWindowTitle } from '@/components/utils/WithWindowTitle';
 import { getDefaultLayout } from '@/components/utils/layout';
 

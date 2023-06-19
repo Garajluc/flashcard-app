@@ -1,23 +1,28 @@
+// ------- FlashCards ------- //
 export type FlashCard = {
-  id: string;
   question: string;
   answer: string;
 };
 
-export type FlashCards = FlashCard[];
-
-export type Collection = {
+export type FlashCardWithId = FlashCard & {
   id: string;
+};
+
+export type FlashCards = FlashCard[];
+export type FlashCardsWithId = FlashCardWithId[];
+
+// ------- Collections ------- //
+export type Collection = {
   category_id: string;
   category_name: string;
   flashcards: FlashCards;
 };
 
+export type CollectionWithId = Collection & {
+  id: string;
+};
+
 export type Collections = Collection[];
+export type CollectionsWithId = CollectionWithId[];
 
 export type CollectionsCategory = Omit<Collection, 'flashcards'>[];
-
-export type FlashCardRequestBody = Omit<FlashCard, 'id'>;
-export type CollectionRequestBody = Omit<Collection, 'id' | 'flashcards'> & {
-  flashcards: FlashCardRequestBody[];
-};
