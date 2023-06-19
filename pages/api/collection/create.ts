@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { collections } from '@/data/collections';
 import { createOrUpdateCollections } from '@/api/collection/CollectionService';
-import type { Collections } from '@/data/types';
+import type { CollectionsWithId } from '@/data/types';
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Collections>
+  res: NextApiResponse<CollectionsWithId>
 ) {
   if (req.method == 'POST') {
     // This is a mock implementation of API call

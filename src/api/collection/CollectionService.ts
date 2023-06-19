@@ -1,24 +1,25 @@
 import { v4 as uuidv4 } from 'uuid';
 import type {
-  Collections,
-  CollectionRequestBody,
   FlashCards,
-  FlashCardRequestBody,
+  FlashCard,
+  CollectionsWithId,
+  CollectionWithId,
+  FlashCardsWithId,
   Collection,
 } from '@/data/types';
 
 export const createOrUpdateCollections = (
-  collections: Collections,
-  requestBody: CollectionRequestBody
-): Collections => {
-  const { category_id, category_name, flashcards } = requestBody;
+  collections: CollectionsWithId,
+  formData: Collection
+): CollectionsWithId => {
+  const { category_id, category_name, flashcards } = formData;
 
   if (!category_id || !category_name || !flashcards || !flashcards.length) {
     throw new Error('Missing data');
   }
 
-  const flashcardsWithId: FlashCards = flashcards.map(
-    (flashcard: FlashCardRequestBody) => ({
+  const flashcardsWithId: FlashCardsWithId = flashcards.map(
+    (flashcard: FlashCard) => ({
       ...flashcard,
       id: uuidv4(),
     })
@@ -46,7 +47,7 @@ export const createOrUpdateCollections = (
         category_name,
         flashcards: flashcardsWithId,
       },
-    ] as Collections;
+    ] as CollectionsWithId;
   }
 
   return collections;
@@ -54,8 +55,8 @@ export const createOrUpdateCollections = (
 
 export const getCollectionById = (
   id: string,
-  collections: Collections
-): Collection => {
+  collections: CollectionsWithId
+): CollectionWithId => {
   const collection = collections.find((collection) => collection.id === id);
 
   if (!collection) {
@@ -66,21 +67,31 @@ export const getCollectionById = (
 };
 
 export const updateCollections = (
-  collections: Collections,
+  collections: CollectionsWithId,
   collectionId: string,
-  requestBody: Collection
-): Collections => {
-  const { category_id, category_name, flashcards } = requestBody;
+  formData: Omit<Collection, 'flashcards'> & {
+    flashcards: FlashCard[];
+  }
+): CollectionsWithId => {
+  const { category_id, category_name, flashcards } = formData;
 
   if (!category_id || !category_name || !flashcards || !flashcards.length) {
     throw new Error('Missing data'); // more detailed!
   }
 
+  const flashcardsWithId: FlashCards = flashcards.map(
+    (flashcard: FlashCard) => ({
+      ...flashcard,
+      id: uuidv4(),
+    })
+  );
+
   return collections.map((collection) => {
     if (collection.id === collectionId) {
       return {
         ...collection,
-        ...requestBody,
+        ...formData,
+        flashcards: flashcardsWithId,
       };
     }
     return collection;

@@ -7,10 +7,10 @@ import {
   updateCollections,
 } from '@/api/collection/CollectionService';
 import { useQueryValueFromRouter } from '@/utils/useQueryValueFromRouter';
-import type { Collection } from '@/data/types';
+import type { Collection, CollectionWithId } from '@/data/types';
 
 type HookReturn = {
-  collection: Collection;
+  collection: CollectionWithId;
   onSubmit: (formData: Collection) => void;
 };
 

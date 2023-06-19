@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material';
 import { CollectionCard } from './CollectionCard';
-import type { CollectionsCategory } from '@/data/types';
+import type { CollectionsWithId } from '@/data/types';
 
 type CollectionCardListProps = {
-  collections: CollectionsCategory;
+  collections: CollectionsWithId;
   handleDelete: (id: string) => void;
 };
 
