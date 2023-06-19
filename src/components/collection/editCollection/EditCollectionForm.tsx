@@ -12,7 +12,7 @@ export const EditCollectionForm = () => {
       onSubmit={onSubmit}
       validationSchema={CollectionValidationSchema}
     >
-      <CollectionMutationFormFields />
+      <CollectionMutationFormFields isUpdate />
     </FormAdapter>
   );
 };

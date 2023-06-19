@@ -5,11 +5,17 @@ import { WithPageTitle } from '@/components/utils/WithPageTitle';
 import { ControlledArrayField } from '@/components/utils/form-hooks-related/ControlledArrayField';
 import { ControlledAutocomplete } from '@/components/utils/form-hooks-related/ControlledAutocomplete';
 
-export const CollectionMutationFormFields = () => {
+type CollectionMutationFormFieldsProps = { isUpdate?: boolean };
+
+export const CollectionMutationFormFields = ({
+  isUpdate,
+}: CollectionMutationFormFieldsProps) => {
   const { options, setCategoryId } = useCollectionMutationFormFields();
 
   return (
-    <WithPageTitle title="Create flashcard Collection">
+    <WithPageTitle
+      title={`${isUpdate ? 'Update' : 'Create'} Flashcard Collection`}
+    >
       <Stack spacing={4}>
         <Grid container item xs={12} sm={7}>
           <ControlledAutocomplete
