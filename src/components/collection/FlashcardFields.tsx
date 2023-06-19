@@ -7,10 +7,15 @@ import { IconButton } from '../utils/IconButton';
 export type FlashcardFieldsProps = {
   field: Record<'id' | 'question' | 'answer', string>;
   index: number;
+  fieldCount: number;
   remove: UseFieldArrayRemove;
 };
 
-export const FlashcardFields = ({ index, remove }: FlashcardFieldsProps) => {
+export const FlashcardFields = ({
+  index,
+  fieldCount,
+  remove,
+}: FlashcardFieldsProps) => {
   return (
     <Grid
       container
@@ -42,7 +47,7 @@ export const FlashcardFields = ({ index, remove }: FlashcardFieldsProps) => {
           fullWidth
         />
       </Grid>
-      {index > 0 && (
+      {fieldCount > 1 && (
         <Grid
           container
           item

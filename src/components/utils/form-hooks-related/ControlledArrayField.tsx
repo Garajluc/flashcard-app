@@ -6,12 +6,10 @@ import { BottomBorderActionStyle } from '@/components/theme/styles/BottomBorderA
 
 interface ControlledArrayFieldProps<ArrayData> {
   arrayName: string;
-  Component: ({
-    field,
-    index,
-  }: {
+  Component: (props: {
     field: Record<keyof ArrayData, string>;
     index: number;
+    fieldCount: number;
     remove: UseFieldArrayRemove;
   }) => JSX.Element;
 }
@@ -29,11 +27,12 @@ export const ControlledArrayField = <ArrayData extends object>({
 
   return (
     <Stack spacing={2}>
-      {fields.map((field, index) => (
+      {fields.map((field, index, array) => (
         <Component
           field={field as Record<keyof ArrayData, string>}
           index={index}
-          key={index}
+          fieldCount={array.length}
+          key={field.id}
           remove={remove}
         />
       ))}
