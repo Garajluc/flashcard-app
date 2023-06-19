@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
+import { Dialog } from '@mui/material';
 import { EmptyScreen } from '../utils/EmptyScreen';
 import { ActionButton } from '../utils/ActionButton';
 import { WithLoading } from '../utils/WithLoading';
@@ -9,9 +10,18 @@ import { WithActionToolbar } from '../utils/WithActionToolbar';
 import SearchField from '../utils/SearchField';
 import { useCollections } from './useCollections';
 import { CollectionCardList } from './CollectionCardList';
+import { CollectionDeleteModal } from './CollectionDeleteModal';
 
 export const Collections = () => {
-  const { hasData, collections, handleSearch } = useCollections();
+  const {
+    hasData,
+    collections,
+    collectionIdToDelete,
+    handleSearch,
+    handleDeleteCollection,
+    confirmDeleteCollection,
+    cancelDeleteCollection,
+  } = useCollections();
 
   return (
     <WithPageTitle title="Collections">
@@ -49,10 +59,22 @@ export const Collections = () => {
               }
             />
           )}
-          {hasData && <CollectionCardList collections={collections ?? []} />}
+          {hasData && (
+            <CollectionCardList
+              collections={collections ?? []}
+              handleDelete={handleDeleteCollection}
+            />
+          )}
         </WithLoading>
         <APIErrorAlert error={undefined} />
       </WithActionToolbar>
+      <Dialog fullWidth maxWidth="xs" open={collectionIdToDelete !== null}>
+        <CollectionDeleteModal
+          id={collectionIdToDelete}
+          confirmDeleteCollection={confirmDeleteCollection}
+          cancelDeleteCollection={cancelDeleteCollection}
+        />
+      </Dialog>
     </WithPageTitle>
   );
 };

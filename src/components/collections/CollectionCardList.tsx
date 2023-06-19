@@ -4,10 +4,12 @@ import type { CollectionsCategory } from '@/data/types';
 
 type CollectionCardListProps = {
   collections: CollectionsCategory;
+  handleDelete: (id: string) => void;
 };
 
 export const CollectionCardList = ({
   collections,
+  handleDelete,
 }: CollectionCardListProps) => {
   return (
     <Grid container spacing={4}>
@@ -17,6 +19,7 @@ export const CollectionCardList = ({
             <CollectionCard
               title={collection.category_name}
               id={collection.id}
+              handleDelete={handleDelete}
             />
           </Grid>
         );
