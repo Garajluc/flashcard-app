@@ -8,10 +8,10 @@ import {
 import { CollectionsContext } from '@/context/CollectionsContext';
 import { getCollectionById } from '@/api/collection/CollectionService';
 import { useQueryValueFromRouter } from '@/utils/useQueryValueFromRouter';
-import type { Collection } from '@/data/types';
+import type { Collection, FlashCardWithId } from '@/data/types';
 
 type HookReturn = {
-  activeCard?: Collection['flashcards'][number];
+  activeCard?: FlashCardWithId;
   collection: Collection;
   progress: number;
   correctAnswerCount: number;

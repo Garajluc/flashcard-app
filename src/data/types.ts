@@ -12,17 +12,18 @@ export type FlashCards = FlashCard[];
 export type FlashCardsWithId = FlashCardWithId[];
 
 // ------- Collections ------- //
-export type Collection = {
+export type CollectionCategory = {
   category_id: string;
   category_name: string;
+};
+export type Collection = CollectionCategory & {
   flashcards: FlashCards;
 };
 
-export type CollectionWithId = Collection & {
+export type CollectionWithId = CollectionCategory & {
   id: string;
+  flashcards: FlashCardsWithId;
 };
 
 export type Collections = Collection[];
 export type CollectionsWithId = CollectionWithId[];
-
-export type CollectionsCategory = Omit<Collection, 'flashcards'>[];
