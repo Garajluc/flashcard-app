@@ -7,6 +7,7 @@ import type {
   FlashCardsWithId,
   Collection,
 } from '@/data/types';
+import { getKeysOfNullValues } from '@/components/services/api/ErrorsService';
 
 export const createOrUpdateCollections = (
   collections: CollectionsWithId,
@@ -14,8 +15,10 @@ export const createOrUpdateCollections = (
 ): CollectionsWithId => {
   const { category_id, category_name, flashcards } = formData;
 
-  if (!category_id || !category_name || !flashcards || !flashcards.length) {
-    throw new Error('Missing data');
+  if (!category_id || !category_name || !flashcards) {
+    throw new Error(
+      `Missing data: ${getKeysOfNullValues(formData).join(', ')}`
+    );
   }
 
   const flashcardsWithId: FlashCardsWithId = flashcards.map(
@@ -75,8 +78,10 @@ export const updateCollections = (
 ): CollectionsWithId => {
   const { category_id, category_name, flashcards } = formData;
 
-  if (!category_id || !category_name || !flashcards || !flashcards.length) {
-    throw new Error('Missing data'); // more detailed!
+  if (!category_id || !category_name || !flashcards) {
+    throw new Error(
+      `Missing data: ${getKeysOfNullValues(formData).join(', ')}`
+    );
   }
 
   const flashcardsWithId: FlashCards = flashcards.map(
