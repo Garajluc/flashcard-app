@@ -1,8 +1,10 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import shuffle from 'lodash.shuffle';
+import { useRouter } from 'next/router';
 import {
   calculatePercentage,
-  removeFirst,
+  removeById,
+  removeDuplicates,
   shiftFirstToEnd,
 } from './CollectionQuizService';
 import { CollectionsContext } from '@/context/CollectionsContext';
@@ -29,44 +31,87 @@ type HookReturn = {
 };
 
 export const useCollectionQuiz = (): HookReturn => {
-  const id = useQueryValueFromRouter('id');
+  const router = useRouter();
+  const collectionId = useQueryValueFromRouter('id');
+  const cardId = useQueryValueFromRouter('cardId');
   const { collections } = useContext(CollectionsContext);
-  const collection = getCollectionById(id, collections);
-  const flashcardsTotalLength = collection.flashcards.length;
+  const collection = getCollectionById(collectionId, collections);
+  const flashcards = collection.flashcards;
+  const flashcardsLength = flashcards.length;
+  const activeCard = useMemo(
+    () => flashcards.filter((card) => card.id === cardId),
+    [cardId, flashcards]
+  );
+
+  const [unansweredCards, setUnansweredCards] = useState(flashcards);
+  const [_answeredCards, setAnsweredCards] = useState<FlashCardsWithId>([]);
+  const [correctlyAnsweredCards, setCorrectlyAnsweredCards] =
+    useState<FlashCardsWithId>([]);
+  const [wronglyAnsweredCards, setWronglyAnsweredCards] =
+    useState<FlashCardsWithId>([]);
+  const [includeIncorrect, setIncludeIncorrect] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  const [includeIncorrect, setIncludeIncorrect] = useState(true);
-  const [correctAnswerCount, setCorrectAnswerCount] = useState<number>(0);
-  const [wrongAnswerCount, setWrongAnswerCount] = useState<number>(0);
-  const [unansweredCards, setUnansweredCards] = useState(collection.flashcards);
+  const setProgressValue = useCallback(
+    (progress: number) =>
+      setProgress(
+        calculatePercentage(flashcardsLength, flashcardsLength - progress)
+      ),
+    [flashcardsLength]
+  );
+
+  const handleCardIdChange = useCallback(
+    (cardId?: string) => {
+      if (!cardId) return;
+      router.push(
+        `/collection/${collectionId}/quiz?cardId=${cardId}`,
+        undefined,
+        { shallow: true }
+      );
+    },
+    [collectionId, router]
+  );
 
   const handleStillLearning = useCallback(() => {
-    const shiftedCards = includeIncorrect
-      ? shiftFirstToEnd(unansweredCards)
-      : removeFirst(unansweredCards);
+    const cardsWithoutAnsweredQuestion = removeById(unansweredCards, cardId);
+    const cardsWithIncorrectlyAnsweredQuestions = removeDuplicates([
+      ...shiftFirstToEnd(unansweredCards),
+      ...wronglyAnsweredCards,
+    ]);
+    const cardsToAnswer = includeIncorrect
+      ? cardsWithIncorrectlyAnsweredQuestions
+      : cardsWithoutAnsweredQuestion;
 
-    const progressPercentage = calculatePercentage(
-      flashcardsTotalLength,
-      flashcardsTotalLength -
-        (includeIncorrect ? unansweredCards.length : unansweredCards.length - 1)
-    );
-
-    setWrongAnswerCount((prev) => prev + 1);
-    setUnansweredCards(shiftedCards);
-    setProgress(progressPercentage);
-  }, [flashcardsTotalLength, includeIncorrect, unansweredCards]);
+    setUnansweredCards(cardsToAnswer);
+    setAnsweredCards((prev) => [...prev, ...activeCard]);
+    setWronglyAnsweredCards((prev) => [...prev, ...activeCard]);
+    setProgressValue(cardsToAnswer.length);
+    handleCardIdChange(cardsToAnswer[0]?.id);
+  }, [
+    activeCard,
+    cardId,
+    handleCardIdChange,
+    includeIncorrect,
+    setProgressValue,
+    unansweredCards,
+    wronglyAnsweredCards,
+  ]);
 
   const handleKnown = useCallback(() => {
-    const [_first, ...rest] = unansweredCards;
-    const progressPercentage = calculatePercentage(
-      flashcardsTotalLength,
-      flashcardsTotalLength - rest.length
-    );
+    const cardsWithoutAnsweredQuestion = removeById(unansweredCards, cardId);
 
-    setCorrectAnswerCount((prev) => prev + 1);
-    setUnansweredCards(rest);
-    setProgress(progressPercentage);
-  }, [flashcardsTotalLength, unansweredCards]);
+    setUnansweredCards(cardsWithoutAnsweredQuestion);
+    setAnsweredCards((prev) => [...prev, ...activeCard]);
+    setCorrectlyAnsweredCards((prev) => [...prev, ...activeCard]);
+    setProgressValue(cardsWithoutAnsweredQuestion.length);
+    handleCardIdChange(cardsWithoutAnsweredQuestion[0]?.id);
+  }, [
+    activeCard,
+    cardId,
+    handleCardIdChange,
+    setProgressValue,
+    unansweredCards,
+  ]);
 
   const handleIncludeIncorrect = useCallback(() => {
     setIncludeIncorrect((prev) => !prev);
@@ -78,12 +123,12 @@ export const useCollectionQuiz = (): HookReturn => {
 
   return {
     activeCard: unansweredCards[0],
-    collection,
-    progress,
-    correctAnswerCount,
-    wrongAnswerCount,
+    correctAnswerCount: correctlyAnsweredCards.length,
+    wrongAnswerCount: wronglyAnsweredCards.length,
     includeIncorrect,
     unansweredCards,
+    collection,
+    progress,
     handleStillLearning,
     handleKnown,
     handleIncludeIncorrect,
