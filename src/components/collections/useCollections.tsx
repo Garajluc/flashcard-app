@@ -1,11 +1,11 @@
 import { useCallback, useContext, useState } from 'react';
-import type { Collections } from '../../data/types';
+import type { CollectionsWithId } from '../../data/types';
 import { CollectionsContext } from '@/context/CollectionsContext';
 import { useOmniListSearch } from '@/utils/useOmniListSearch';
 
 type HookReturn = {
   hasData?: boolean;
-  collections?: Collections | null;
+  collections?: CollectionsWithId | null;
   collectionIdToDelete: string | null;
   handleSearch: (value: string) => void;
   handleDeleteCollection: (id: string) => void;
