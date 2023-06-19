@@ -1,3 +1,4 @@
+import { Grid, Typography } from '@mui/material';
 import { LinearDeterminate } from '../utils/LinearDeterminate';
 import { WithCustomAppBar } from '../utils/WithCustomAppBar';
 import { CollectionQuizAppBar } from './CollectionQuizAppBar';
@@ -35,12 +36,20 @@ export const CollectionQuiz = () => {
       {activeCard ? (
         <FlipCard
           key={activeCard.id}
-          frontContent={<>{activeCard.question}</>}
+          frontContent={
+            <Typography variant="h5">{activeCard.question}</Typography>
+          }
           backContent={
-            <>
-              {activeCard.question}
-              {activeCard.answer}
-            </>
+            <Grid container justifyContent="center" alignItems="center">
+              <Grid item xs={12}>
+                <Typography variant="h4" sx={{ opacity: 0.5 }} gutterBottom>
+                  {activeCard.question}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="h2">{activeCard.answer}</Typography>
+              </Grid>
+            </Grid>
           }
           correctAnswerCount={correctAnswerCount}
           wrongAnswerCount={wrongAnswerCount}
