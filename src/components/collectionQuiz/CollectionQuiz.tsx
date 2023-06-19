@@ -33,7 +33,7 @@ export const CollectionQuiz = () => {
         </>
       }
     >
-      {activeCard ? (
+      {activeCard && unansweredCards.length > 0 && (
         <FlipCard
           key={activeCard.id}
           frontContent={
@@ -59,7 +59,8 @@ export const CollectionQuiz = () => {
           handleIncludeIncorrect={handleIncludeIncorrect}
           handleShuffle={handleShuffle}
         />
-      ) : (
+      )}
+      {unansweredCards.length === 0 && (
         <CollectionQuizEnd
           collection={collection}
           correctAnswerCount={correctAnswerCount}

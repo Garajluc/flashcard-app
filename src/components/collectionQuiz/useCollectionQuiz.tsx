@@ -63,11 +63,7 @@ export const useCollectionQuiz = (): HookReturn => {
   const handleCardIdChange = useCallback(
     (cardId?: string) => {
       if (!cardId) return;
-      router.push(
-        `/collection/${collectionId}/quiz?cardId=${cardId}`,
-        undefined,
-        { shallow: true }
-      );
+      router.push(`/collection/${collectionId}/quiz?cardId=${cardId}`);
     },
     [collectionId, router]
   );
@@ -122,7 +118,7 @@ export const useCollectionQuiz = (): HookReturn => {
   }, []);
 
   return {
-    activeCard: unansweredCards[0],
+    activeCard: activeCard?.[0],
     correctAnswerCount: correctlyAnsweredCards.length,
     wrongAnswerCount: wronglyAnsweredCards.length,
     includeIncorrect,
