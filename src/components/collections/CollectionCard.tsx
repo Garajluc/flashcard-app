@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import Link from 'next/link';
 import {
   Card,
   CardActions,
@@ -12,6 +11,7 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '../utils/IconButton';
+import { ActionIconButton } from '../utils/ActionIconButton';
 import { BottomBorderActionStyle } from '@/components/theme/styles/BottomBorderAction';
 import { getCollectionById } from '@/api/collection/CollectionService';
 import { CollectionsContext } from '@/context/CollectionsContext';
@@ -65,26 +65,16 @@ export const CollectionCard = ({
             />
           </Grid>
           <Grid item>
-            <Link
-              passHref
+            <ActionIconButton
               href={`/collection/${id}/quiz?cardId=${collection.flashcards[0].id}`}
-              legacyBehavior
-            >
-              <IconButton
-                title="Quiz"
-                icon={<PlayCircleOutlineIcon />}
-                size="small"
-                variant="text"
-              />
-            </Link>
-            <Link passHref href={`/collection/${id}/edit`} legacyBehavior>
-              <IconButton
-                title="Edit"
-                icon={<EditIcon />}
-                size="small"
-                variant="text"
-              />
-            </Link>
+              title="Quiz"
+              icon={<PlayCircleOutlineIcon />}
+            />
+            <ActionIconButton
+              href={`/collection/${id}/edit`}
+              title="Edit"
+              icon={<EditIcon />}
+            />
           </Grid>
         </Grid>
       </CardActions>

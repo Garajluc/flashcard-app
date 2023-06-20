@@ -7,6 +7,7 @@ import Image from 'next/image';
 import ClearIcon from '@mui/icons-material/Clear';
 import { APP_BAR_HEIGHT } from '../utils/layout/LayoutDimensionsService';
 import { IconButton } from '../utils/IconButton';
+import { ActionIconButton } from '../utils/ActionIconButton';
 import type { CollectionWithId } from '@/data/types';
 
 type CollectionQuizAppBarProps = {
@@ -24,19 +25,18 @@ export const CollectionQuizAppBar = ({
     <Box sx={{ height: APP_BAR_HEIGHT }}>
       <MuiAppBar position="static" elevation={0}>
         <Toolbar>
-          <Link href="/">
-            <IconButton
-              title="Home"
-              icon={
-                <Image
-                  src="/flash-cards-logo.png"
-                  alt="Logo of Flash Cards"
-                  width={25}
-                  height={25}
-                />
-              }
-            />
-          </Link>
+          <ActionIconButton
+            href="/"
+            title="Back to collections"
+            icon={
+              <Image
+                src="/flash-cards-logo.png"
+                alt="Logo of Flash Cards"
+                width={25}
+                height={25}
+              />
+            }
+          />
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <Stack alignItems={'center'}>
