@@ -17,7 +17,7 @@ type HookReturn = {
 export const useEditCollectionForm = (): HookReturn => {
   const router = useRouter();
   const id = useQueryValueFromRouter('id');
-  const { collections, setCollections } = useContext(CollectionsContext);
+  const { collections, onSetCollections } = useContext(CollectionsContext);
   const collection = getCollectionById(id, collections);
 
   const successCallback = useCallback(() => {
@@ -33,10 +33,10 @@ export const useEditCollectionForm = (): HookReturn => {
         collection.id,
         formData
       );
-      setCollections?.(updatedCollections);
+      onSetCollections?.(updatedCollections);
       successCallback();
     },
-    [collection.id, collections, setCollections, successCallback]
+    [collection.id, collections, onSetCollections, successCallback]
   );
 
   return { collection, onSubmit };

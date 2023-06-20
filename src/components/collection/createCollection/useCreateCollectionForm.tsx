@@ -11,7 +11,7 @@ type HookReturn = {
 
 export const useCreateCollectionForm = (): HookReturn => {
   const router = useRouter();
-  const { collections, setCollections } = useContext(CollectionsContext);
+  const { collections, onSetCollections } = useContext(CollectionsContext);
 
   const successCallback = useCallback(() => {
     router.push({
@@ -25,10 +25,10 @@ export const useCreateCollectionForm = (): HookReturn => {
         collections,
         formData
       );
-      setCollections?.(updatedCollections);
+      onSetCollections?.(updatedCollections);
       successCallback();
     },
-    [collections, setCollections, successCallback]
+    [collections, onSetCollections, successCallback]
   );
 
   return { onSubmit };

@@ -14,7 +14,7 @@ type HookReturn = {
 
 export const useCollectionDeleteTrigger = ({ id }: HookProps): HookReturn => {
   const [openModal, setOpenModal] = useState(false);
-  const { collections, setCollections } = useContext(CollectionsContext);
+  const { collections, onSetCollections } = useContext(CollectionsContext);
 
   const handleDeleteCollection = useCallback(() => setOpenModal(true), []);
 
@@ -24,9 +24,9 @@ export const useCollectionDeleteTrigger = ({ id }: HookProps): HookReturn => {
     const collectionsWithoutDeleted = collections.filter(
       (collection) => collection.id !== id
     );
-    setCollections?.(collectionsWithoutDeleted);
+    onSetCollections?.(collectionsWithoutDeleted);
     setOpenModal(false);
-  }, [collections, id, setCollections]);
+  }, [collections, id, onSetCollections]);
 
   return {
     openModal,
