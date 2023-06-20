@@ -14,7 +14,7 @@ type HookReturn = {
   onSubmit: (formData: Collection) => void;
 };
 
-export const useEditCollectionForm = (): HookReturn => {
+export const useEditCollection = (): HookReturn => {
   const router = useRouter();
   const id = useQueryValueFromRouter('id');
   const { collections, onSetCollections } = useContext(CollectionsContext);

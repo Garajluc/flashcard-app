@@ -1,15 +1,15 @@
-import { EditCollectionForm } from '@/components/collection/editCollection/EditCollectionForm';
+import { EditCollection } from '@/components/collection/editCollection/EditCollection';
 import { WithWindowTitle } from '@/components/utils/WithWindowTitle';
 import { getDefaultLayout } from '@/components/utils/layout';
 
-const EditCollection = () => {
+const EditCollectionPage = () => {
   return (
     <WithWindowTitle title={'Edit Collection'}>
-      <EditCollectionForm />
+      <EditCollection />
     </WithWindowTitle>
   );
 };
 
-EditCollection.getLayout = getDefaultLayout;
+EditCollectionPage.getLayout = getDefaultLayout;
 
-export default EditCollection;
+export default EditCollectionPage;

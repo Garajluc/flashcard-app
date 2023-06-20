@@ -9,7 +9,7 @@ type HookReturn = {
   onSubmit: (formData: Collection) => void;
 };
 
-export const useCreateCollectionForm = (): HookReturn => {
+export const useCreateCollection = (): HookReturn => {
   const router = useRouter();
   const { collections, onSetCollections } = useContext(CollectionsContext);
 
