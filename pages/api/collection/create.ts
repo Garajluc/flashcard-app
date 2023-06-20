@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { collections } from '@/data/collections';
-import { createOrUpdateCollections } from '@/api/collection/CollectionService';
 import type { CollectionsWithId } from '@/data/types';
+import { createOrUpdateCollection } from '@/api/collection/CollectionService';
 
 export default function handler(
   req: NextApiRequest,
@@ -10,7 +10,7 @@ export default function handler(
   if (req.method == 'POST') {
     // This is a mock implementation of API call
     // If we would have implemented a DB connection, we would interact with DB data instead of local collections data
-    const updatedCollections = createOrUpdateCollections(
+    const updatedCollections = createOrUpdateCollection(
       collections,
       JSON.parse(req.body)
     );

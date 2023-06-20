@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import type { CollectionsWithId } from '../../data/types';
 import { CollectionsContext } from '@/context/CollectionsContext';
-import { useOmniListSearch } from '@/utils/useOmniListSearch';
+import { useOmniListSearch } from '@/components/utils/useOmniListSearch';
 
 type HookReturn = {
   collections?: CollectionsWithId | null;
