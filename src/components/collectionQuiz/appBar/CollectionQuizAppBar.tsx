@@ -5,38 +5,39 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
 import ClearIcon from '@mui/icons-material/Clear';
-import { APP_BAR_HEIGHT } from '../utils/layout/LayoutDimensionsService';
-import { IconButton } from '../utils/IconButton';
-import type { CollectionWithId } from '@/data/types';
+import { APP_BAR_HEIGHT } from '../../utils/layout/LayoutDimensionsService';
+import { IconButton } from '../../utils/IconButton';
+import { ActionIconButton } from '../../utils/ActionIconButton';
+import { LinearDeterminate } from '../../utils/LinearDeterminate';
+import { useCollectionQuizAppBar } from './useCollectionQuizAppBar';
 
 type CollectionQuizAppBarProps = {
-  collection: CollectionWithId;
-  unansweredCardsCount: number;
+  answeredCardsCount: number;
 };
 
 export const CollectionQuizAppBar = ({
-  collection,
-  unansweredCardsCount,
+  answeredCardsCount,
 }: CollectionQuizAppBarProps) => {
-  const flashCardsTotalCount = collection.flashcards.length;
-  const answeredCardsCount = flashCardsTotalCount - unansweredCardsCount;
+  const { progress, cardsTotalCount, collectionName } = useCollectionQuizAppBar(
+    { answeredCardsCount }
+  );
+
   return (
     <Box sx={{ height: APP_BAR_HEIGHT }}>
       <MuiAppBar position="static" elevation={0}>
         <Toolbar>
-          <Link href="/">
-            <IconButton
-              title="Home"
-              icon={
-                <Image
-                  src="/flash-cards-logo.png"
-                  alt="Logo of Flash Cards"
-                  width={25}
-                  height={25}
-                />
-              }
-            />
-          </Link>
+          <ActionIconButton
+            href="/"
+            title="Back to collections"
+            icon={
+              <Image
+                src="/flash-cards-logo.png"
+                alt="Logo of Flash Cards"
+                width={25}
+                height={25}
+              />
+            }
+          />
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <Stack alignItems={'center'}>
@@ -45,14 +46,14 @@ export const CollectionQuizAppBar = ({
                 color="text.primary"
                 sx={{ flexGrow: 1, opacity: 0.5 }}
               >
-                {answeredCardsCount}/{flashCardsTotalCount}
+                {answeredCardsCount}/{cardsTotalCount}
               </Typography>
               <Typography
                 variant="subtitle1"
                 color="text.primary"
                 sx={{ flexGrow: 1, opacity: 0.5 }}
               >
-                {collection.category_name}
+                {collectionName}
               </Typography>
             </Stack>
           </Box>
@@ -67,6 +68,7 @@ export const CollectionQuizAppBar = ({
           </Link>
         </Toolbar>
       </MuiAppBar>
+      <LinearDeterminate progress={progress} />
     </Box>
   );
 };

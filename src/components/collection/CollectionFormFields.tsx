@@ -1,16 +1,16 @@
 import { Grid, Stack } from '@mui/material';
 import { FlashcardFields } from './FlashcardFields';
-import { useCollectionMutationFormFields } from './useCollectionMutationFormFields';
+import { useCollectionFormFields } from './useCollectionFormFields';
 import { WithPageTitle } from '@/components/utils/WithPageTitle';
 import { ControlledArrayField } from '@/components/utils/form-hooks-related/ControlledArrayField';
 import { ControlledAutocomplete } from '@/components/utils/form-hooks-related/ControlledAutocomplete';
 
-type CollectionMutationFormFieldsProps = { isUpdate?: boolean };
+type CollectionFormFieldsProps = { isUpdate?: boolean };
 
-export const CollectionMutationFormFields = ({
+export const CollectionFormFields = ({
   isUpdate,
-}: CollectionMutationFormFieldsProps) => {
-  const { options, setCategoryId } = useCollectionMutationFormFields();
+}: CollectionFormFieldsProps) => {
+  const { options, setCategoryId } = useCollectionFormFields();
 
   return (
     <WithPageTitle
@@ -24,6 +24,7 @@ export const CollectionMutationFormFields = ({
             helperText={'Select from existing collections or create a new one'}
             options={options}
             onBlur={setCategoryId}
+            disabled={isUpdate}
           />
         </Grid>
         <ControlledArrayField

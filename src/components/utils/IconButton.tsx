@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type {
   IconButtonProps as MuiIconButtonProps,
   TooltipProps,
@@ -19,24 +20,31 @@ const MuiIconButtonText = styled(MuiIconButton)(({ theme }) => ({
   },
 }));
 
-export const IconButton = ({
-  title,
-  icon,
-  variant = 'contained',
-  tooltipPlacement,
-  ...rest
-}: IconButtonProps) => {
-  if (variant === 'text') {
+export const IconButton = forwardRef(
+  (
+    {
+      title,
+      icon,
+      variant = 'contained',
+      tooltipPlacement,
+      ...rest
+    }: IconButtonProps,
+    _ref
+  ) => {
+    if (variant === 'text') {
+      return (
+        <WithTooltip title={title} placement={tooltipPlacement}>
+          <MuiIconButtonText {...rest}>{icon}</MuiIconButtonText>
+        </WithTooltip>
+      );
+    }
+
     return (
       <WithTooltip title={title} placement={tooltipPlacement}>
-        <MuiIconButtonText {...rest}>{icon}</MuiIconButtonText>
+        <MuiIconButton {...rest}>{icon}</MuiIconButton>
       </WithTooltip>
     );
   }
+);
 
-  return (
-    <WithTooltip title={title} placement={tooltipPlacement}>
-      <MuiIconButton {...rest}>{icon}</MuiIconButton>
-    </WithTooltip>
-  );
-};
+IconButton.displayName = 'IconButton';

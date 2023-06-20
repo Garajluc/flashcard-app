@@ -1,5 +1,5 @@
 import {
-  createOrUpdateCollections,
+  createOrUpdateCollection,
   getCollectionById,
   updateCollections,
 } from './CollectionService';
@@ -28,7 +28,7 @@ describe('CollectionService', () => {
         ],
       };
 
-      const updatedCollections = createOrUpdateCollections(
+      const updatedCollections = createOrUpdateCollection(
         collections,
         requestBody
       );
@@ -59,7 +59,7 @@ describe('CollectionService', () => {
         ],
       };
 
-      const updatedCollections = createOrUpdateCollections(
+      const updatedCollections = createOrUpdateCollection(
         collections,
         requestBody
       );
@@ -91,7 +91,7 @@ describe('CollectionService', () => {
       };
 
       expect(() =>
-        createOrUpdateCollections(collections, requestBody as Collection)
+        createOrUpdateCollection(collections, requestBody as Collection)
       ).toThrow();
     });
   });

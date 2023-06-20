@@ -1,8 +1,6 @@
 import { useCallback, useContext, useMemo, useState } from 'react';
-import shuffle from 'lodash.shuffle';
 import { useRouter } from 'next/router';
 import {
-  calculatePercentage,
   removeById,
   removeDuplicates,
   shiftFirstToEnd,
@@ -10,124 +8,100 @@ import {
 import { CollectionsContext } from '@/context/CollectionsContext';
 import { getCollectionById } from '@/api/collection/CollectionService';
 import { useQueryValueFromRouter } from '@/utils/useQueryValueFromRouter';
-import type {
-  CollectionWithId,
-  FlashCardWithId,
-  FlashCardsWithId,
-} from '@/data/types';
+import type { FlashCardWithId, FlashCardsWithId } from '@/data/types';
+import { useQueryValueFromRouterIfAvailable } from '@/utils/useQueryValueFromRouterIfAvailable';
 
 type HookReturn = {
   activeCard?: FlashCardWithId;
-  collection: CollectionWithId;
-  progress: number;
-  correctAnswerCount: number;
   wrongAnswerCount: number;
-  includeIncorrect: boolean;
-  unansweredCards: FlashCardsWithId;
-  handleStillLearning: () => void;
+  answeredCardsCount: number;
+  correctAnswerCount: number;
+  isIncorrectIncluded: boolean;
   handleKnown: () => void;
+  handleStillLearning: () => void;
   handleIncludeIncorrect: () => void;
-  handleShuffle: () => void;
 };
 
 export const useCollectionQuiz = (): HookReturn => {
   const router = useRouter();
   const collectionId = useQueryValueFromRouter('id');
-  const cardId = useQueryValueFromRouter('cardId');
+  const cardId = useQueryValueFromRouterIfAvailable('cardId');
   const { collections } = useContext(CollectionsContext);
-  const collection = getCollectionById(collectionId, collections);
-  const flashcards = collection.flashcards;
-  const flashcardsLength = flashcards.length;
-  const activeCard = useMemo(
-    () => flashcards.filter((card) => card.id === cardId),
-    [cardId, flashcards]
-  );
+  const { flashcards } = getCollectionById(collectionId, collections);
 
+  const [isIncorrectIncluded, setIsIncorrectIncluded] = useState(true);
   const [unansweredCards, setUnansweredCards] = useState(flashcards);
-  const [_answeredCards, setAnsweredCards] = useState<FlashCardsWithId>([]);
   const [correctlyAnsweredCards, setCorrectlyAnsweredCards] =
     useState<FlashCardsWithId>([]);
   const [wronglyAnsweredCards, setWronglyAnsweredCards] =
     useState<FlashCardsWithId>([]);
-  const [includeIncorrect, setIncludeIncorrect] = useState(true);
-  const [progress, setProgress] = useState(0);
 
-  const setProgressValue = useCallback(
-    (progress: number) =>
-      setProgress(
-        calculatePercentage(flashcardsLength, flashcardsLength - progress)
-      ),
-    [flashcardsLength]
+  const activeCard = useMemo(
+    () => flashcards.filter((card) => card.id === cardId)[0],
+    [cardId, flashcards]
   );
 
-  const handleCardIdChange = useCallback(
+  const handleRedirectToNextCard = useCallback(
     (cardId?: string) => {
-      if (!cardId) return;
-      router.push(`/collection/${collectionId}/quiz?cardId=${cardId}`);
+      const urlObject = {
+        pathname: `/collection/${collectionId}/quiz`,
+        query: { ...(cardId ? { cardId } : {}) },
+      };
+      router.push(urlObject);
     },
     [collectionId, router]
   );
 
+  const handleIncludeIncorrect = useCallback(() => {
+    setIsIncorrectIncluded((prev) => !prev);
+  }, []);
+
   const handleStillLearning = useCallback(() => {
+    if (!cardId) return;
+
     const cardsWithoutAnsweredQuestion = removeById(unansweredCards, cardId);
     const cardsWithIncorrectlyAnsweredQuestions = removeDuplicates([
       ...shiftFirstToEnd(unansweredCards),
       ...wronglyAnsweredCards,
     ]);
-    const cardsToAnswer = includeIncorrect
+    const cardsToAnswer = isIncorrectIncluded
       ? cardsWithIncorrectlyAnsweredQuestions
       : cardsWithoutAnsweredQuestion;
 
+    setWronglyAnsweredCards((prev) => [...prev, activeCard]);
     setUnansweredCards(cardsToAnswer);
-    setAnsweredCards((prev) => [...prev, ...activeCard]);
-    setWronglyAnsweredCards((prev) => [...prev, ...activeCard]);
-    setProgressValue(cardsToAnswer.length);
-    handleCardIdChange(cardsToAnswer[0]?.id);
+    handleRedirectToNextCard(cardsToAnswer[0]?.id);
   }, [
     activeCard,
     cardId,
-    handleCardIdChange,
-    includeIncorrect,
-    setProgressValue,
+    isIncorrectIncluded,
     unansweredCards,
     wronglyAnsweredCards,
+    handleRedirectToNextCard,
   ]);
 
   const handleKnown = useCallback(() => {
+    if (!cardId) return;
+
     const cardsWithoutAnsweredQuestion = removeById(unansweredCards, cardId);
 
+    setCorrectlyAnsweredCards((prev) => [...prev, activeCard]);
     setUnansweredCards(cardsWithoutAnsweredQuestion);
-    setAnsweredCards((prev) => [...prev, ...activeCard]);
-    setCorrectlyAnsweredCards((prev) => [...prev, ...activeCard]);
-    setProgressValue(cardsWithoutAnsweredQuestion.length);
-    handleCardIdChange(cardsWithoutAnsweredQuestion[0]?.id);
-  }, [
-    activeCard,
-    cardId,
-    handleCardIdChange,
-    setProgressValue,
-    unansweredCards,
-  ]);
+    handleRedirectToNextCard(cardsWithoutAnsweredQuestion[0]?.id);
+  }, [activeCard, cardId, handleRedirectToNextCard, unansweredCards]);
 
-  const handleIncludeIncorrect = useCallback(() => {
-    setIncludeIncorrect((prev) => !prev);
-  }, []);
-
-  const handleShuffle = useCallback(() => {
-    setUnansweredCards((prev) => shuffle(prev));
-  }, []);
+  const answeredCardsCount = flashcards.length - unansweredCards.length;
+  const correctAnswerCount = correctlyAnsweredCards.length;
+  const wrongAnswerCount = wronglyAnsweredCards.length;
 
   return {
-    activeCard: activeCard?.[0],
-    correctAnswerCount: correctlyAnsweredCards.length,
-    wrongAnswerCount: wronglyAnsweredCards.length,
-    includeIncorrect,
-    unansweredCards,
-    collection,
-    progress,
-    handleStillLearning,
+    activeCard,
+    wrongAnswerCount,
+    answeredCardsCount,
+    correctAnswerCount,
+    isIncorrectIncluded,
     handleKnown,
+    handleStillLearning,
     handleIncludeIncorrect,
-    handleShuffle,
   };
 };

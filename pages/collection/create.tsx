@@ -1,15 +1,15 @@
-import { CreateCollectionForm } from '@/components/collection/createCollection/CreateCollectionForm';
+import { CreateCollection } from '@/components/collection/createCollection/CreateCollection';
 import { WithWindowTitle } from '@/components/utils/WithWindowTitle';
 import { getDefaultLayout } from '@/components/utils/layout';
 
-const CreateCollection = () => {
+const CreateCollectionPage = () => {
   return (
     <WithWindowTitle title={'Create Collection'}>
-      <CreateCollectionForm />
+      <CreateCollection />
     </WithWindowTitle>
   );
 };
 
-CreateCollection.getLayout = getDefaultLayout;
+CreateCollectionPage.getLayout = getDefaultLayout;
 
-export default CreateCollection;
+export default CreateCollectionPage;
