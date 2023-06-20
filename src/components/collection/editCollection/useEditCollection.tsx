@@ -1,6 +1,6 @@
 import { useCallback, useContext } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/router';
+import { useCollectionForm } from '../useCollectionForm';
 import { CollectionsContext } from '@/context/CollectionsContext';
 import {
   getCollectionById,
@@ -15,16 +15,10 @@ type HookReturn = {
 };
 
 export const useEditCollection = (): HookReturn => {
-  const router = useRouter();
   const id = useQueryValueFromRouter('id');
   const { collections, onSetCollections } = useContext(CollectionsContext);
   const collection = getCollectionById(id, collections);
-
-  const successCallback = useCallback(() => {
-    router.push({
-      pathname: '/',
-    });
-  }, [router]);
+  const { successCallback } = useCollectionForm();
 
   const onSubmit: SubmitHandler<Collection> = useCallback(
     (formData) => {

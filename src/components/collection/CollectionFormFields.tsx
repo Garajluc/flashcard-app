@@ -24,6 +24,7 @@ export const CollectionFormFields = ({
             helperText={'Select from existing collections or create a new one'}
             options={options}
             onBlur={setCategoryId}
+            disabled={isUpdate}
           />
         </Grid>
         <ControlledArrayField

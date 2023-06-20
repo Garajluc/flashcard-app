@@ -8,7 +8,7 @@ import type {
 } from '@/data/types';
 import { getKeysOfNullValues } from '@/components/services/api/ErrorsService';
 
-export const createOrUpdateCollections = (
+export const createOrUpdateCollection = (
   collections: CollectionsWithId,
   formData: Collection
 ): CollectionsWithId => {

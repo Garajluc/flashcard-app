@@ -6,6 +6,7 @@ export type Option = string;
 interface ControlledAutocompleteProps {
   name: string;
   options: Option[];
+  disabled?: boolean;
   label?: React.ReactNode;
   helperText?: string;
   variant?: StandardTextFieldProps['variant'];
@@ -19,6 +20,7 @@ export const ControlledAutocomplete = ({
   label,
   helperText,
   variant = 'standard',
+  disabled,
   onChange,
   onBlur,
 }: ControlledAutocompleteProps) => {
@@ -53,6 +55,7 @@ export const ControlledAutocomplete = ({
       render={({ field: { ...renderProps }, fieldState: { error } }) => (
         <Autocomplete
           {...renderProps}
+          disabled={disabled}
           options={options}
           filterSelectedOptions
           filterOptions={handleFilterOptions}
