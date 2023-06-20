@@ -73,7 +73,7 @@ export const FlipCard = ({
           }: Include wrongly answered`}
           icon={<RepeatIcon />}
           onClick={handleIncludeIncorrect}
-          color={isIncorrectIncluded ? 'success' : 'inherit'}
+          color={isIncorrectIncluded ? 'primary' : 'inherit'}
         />
       </Grid>
     </Grid>
