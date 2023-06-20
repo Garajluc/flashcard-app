@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { memo } from 'react';
 import {
   Card,
   CardActions,
@@ -9,31 +9,17 @@ import {
 } from '@mui/material';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton } from '../utils/IconButton';
 import { ActionIconButton } from '../utils/ActionIconButton';
+import { CollectionDeleteTrigger } from './CollectionDeleteTrigger';
 import { BottomBorderActionStyle } from '@/components/theme/styles/BottomBorderAction';
-import { getCollectionById } from '@/api/collection/CollectionService';
-import { CollectionsContext } from '@/context/CollectionsContext';
+import type { CollectionWithId } from '@/data/types';
 
 type CollectionCardProps = {
-  title: string;
-  id: string;
-  handleDelete: (id: string) => void;
+  collection: CollectionWithId;
 };
 
-export const CollectionCard = ({
-  title,
-  id,
-  handleDelete,
-}: CollectionCardProps) => {
+export const CollectionCard = memo(({ collection }: CollectionCardProps) => {
   const theme = useTheme();
-  const { collections } = useContext(CollectionsContext);
-  const collection = getCollectionById(id, collections);
-
-  const handleClickDelete = () => {
-    handleDelete(id);
-  };
 
   return (
     <Card sx={BottomBorderActionStyle(theme)}>
@@ -47,31 +33,22 @@ export const CollectionCard = ({
             pb: 2,
           }}
         >
-          <Typography variant="h2">{title}</Typography>
+          <Typography variant="h2">{collection.category_name}</Typography>
         </Grid>
       </CardContent>
       <CardActions>
         <Grid container justifyContent="space-between">
           <Grid item>
-            <IconButton
-              onClick={handleClickDelete}
-              title="Delete"
-              icon={<DeleteIcon />}
-              size="small"
-              variant="text"
-              sx={{
-                opacity: 0.5,
-              }}
-            />
+            <CollectionDeleteTrigger collection={collection} />
           </Grid>
           <Grid item>
             <ActionIconButton
-              href={`/collection/${id}/quiz?cardId=${collection.flashcards[0].id}`}
+              href={`/collection/${collection.id}/quiz?cardId=${collection.flashcards[0].id}`}
               title="Quiz"
               icon={<PlayCircleOutlineIcon />}
             />
             <ActionIconButton
-              href={`/collection/${id}/edit`}
+              href={`/collection/${collection.id}/edit`}
               title="Edit"
               icon={<EditIcon />}
             />
@@ -80,4 +57,6 @@ export const CollectionCard = ({
       </CardActions>
     </Card>
   );
-};
+});
+
+CollectionCard.displayName = 'CollectionCard';

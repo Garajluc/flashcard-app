@@ -4,7 +4,7 @@ import { Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 
 type EmptyScreenProps = {
   title: string;
-  body?: string | React.ReactNode;
+  body: string | React.ReactNode;
   actionButton?: React.ReactNode;
 };
 export const EmptyScreen = ({
