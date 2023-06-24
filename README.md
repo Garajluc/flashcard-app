@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Application Description
+
+The Flashcard application serves as a learning tool that incorporates several basic features. It includes an overview page, a create and edit form, a delete flow, and a quiz section with special options.
+
+This application serves as an example of implementation of various React Design Patterns, embodying four essential characteristics of clean code: readability, simplicity, maintainability, and testability. The components are precisely structured and organized to enhance performance and minimize unnecessary re-rendering.
+
+To manage the application's state, the Context API is utilized, ensuring efficient state management. Furthermore, adhering to the ReactJs standard, Typescript is employed to detect errors and bugs at an earlier stage in the development process.
+
+To facilitate development and ensure reliability, comprehensive tests written in Jest are integrated, streamlining the creation of new functionalities.
+
+The application can be run locally as described in the section [Getting Started](#getting-started)
